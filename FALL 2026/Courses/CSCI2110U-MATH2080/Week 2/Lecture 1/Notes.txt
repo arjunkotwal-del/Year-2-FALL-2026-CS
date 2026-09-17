@@ -1,0 +1,210 @@
+====================================================
+LECTURE 2 - PROPOSITIONAL EQUIVALENCES (Section 1.3)
+CSCI2110U / MATH2080 - Discrete Math
+====================================================
+
+NOTE: No transcript available yet for this lecture.
+Built directly from the textbook (Rosen 8th ed, Section
+1.3), since it's the next section per the course outline.
+Cross-check against the real lecture once posted.
+
+WHAT THIS COVERS:
+Tautology/contradiction/contingency, logical equivalence,
+De Morgan's Laws, the big table of equivalences, building
+new equivalences algebraically, satisfiability.
+
+----------------------------------------------------
+1. TAUTOLOGY, CONTRADICTION, CONTINGENCY
+----------------------------------------------------
+
+TAUTOLOGY:    always True, no matter the inputs.
+              Example: p OR NOT p
+
+CONTRADICTION: always False, no matter the inputs.
+               Example: p AND NOT p
+
+CONTINGENCY:  neither - sometimes T, sometimes F.
+
+Reminder shortcut: spotting "(anything) OR T" or
+"X OR NOT X" lets you call it a tautology instantly -
+but you should still be able to build the table to
+confirm it if unsure.
+
+----------------------------------------------------
+2. LOGICAL EQUIVALENCE - FORMAL DEFINITION
+----------------------------------------------------
+
+DEFINITION: p and q are LOGICALLY EQUIVALENT (written
+p = q, or p <=> q) if p <-> q is a tautology -
+equivalently, if their truth tables have IDENTICAL
+columns for every row.
+
+IMPORTANT: "=" here (logical equivalence) is NOT a
+connective. "p = q" is not itself a compound proposition -
+it's a STATEMENT ABOUT two propositions, meaning
+"these always match."
+
+HOW TO CHECK: build both truth tables side by side.
+If the final columns match row-for-row, they're equivalent.
+
+----------------------------------------------------
+3. DE MORGAN'S LAWS (the headline result of this section)
+----------------------------------------------------
+
+  NOT (p AND q)  =  (NOT p) OR (NOT q)
+  NOT (p OR q)   =  (NOT p) AND (NOT q)
+
+MEMORY RULE: negating flips AND<->OR and pushes the
+negation onto each piece individually.
+
+WORKED EXAMPLE (proved via truth table):
+Show NOT(p OR q) = (NOT p) AND (NOT q)
+
+  p | q | p OR q | NOT(p OR q) | NOT p | NOT q | NOT p AND NOT q
+  T | T |   T    |      F      |   F   |   F   |        F
+  T | F |   T    |      F      |   F   |   T   |        F
+  F | T |   T    |      F      |   T   |   F   |        F
+  F | F |   F    |      T      |   T   |   T   |        T
+
+Columns 4 and 7 match exactly -> equivalent. Confirmed.
+
+APPLIED EXAMPLE:
+Negate: "Miguel has a cellphone and he has a laptop computer."
+
+  p = "Miguel has a cellphone"
+  q = "Miguel has a laptop"
+  Statement = p AND q
+
+  Negation, by De Morgan's: NOT(p AND q) = (NOT p) OR (NOT q)
+
+  RESULT: "Miguel does not have a cellphone, or he does
+  not have a laptop computer."
+
+*** COMMON MISTAKE TO AVOID ***
+The negation of "p and q" is NOT "not p and not q."
+It's "not p OR not q." Negating FLIPS the connective -
+this is exactly the trap quiz questions test.
+
+----------------------------------------------------
+4. THE CONDITIONAL-DISJUNCTION EQUIVALENCE
+----------------------------------------------------
+
+  p -> q   =   (NOT p) OR q
+
+This is huge - it lets you rewrite ANY conditional as an
+OR, which is often easier to manipulate algebraically (no
+separate "implication" rules to memorize once converted).
+
+WORKED CHECK (truth table):
+
+  p | q | NOT p | NOT p OR q | p -> q
+  T | T |   F   |     T      |   T
+  T | F |   F   |     F      |   F
+  F | T |   T   |     T      |   T
+  F | F |   T   |     T      |   T
+
+Match -> confirmed equivalent.
+
+----------------------------------------------------
+5. THE MASTER TABLE OF EQUIVALENCES
+----------------------------------------------------
+
+Identity laws:      p AND T = p          p OR F = p
+Domination laws:     p OR T = T          p AND F = F
+Idempotent laws:     p OR p = p          p AND p = p
+Double negation:     NOT(NOT p) = p
+Commutative laws:    p OR q = q OR p     p AND q = q AND p
+Associative laws:    (p OR q) OR r = p OR (q OR r)
+                     (same pattern for AND)
+Distributive laws:   p OR (q AND r) = (p OR q) AND (p OR r)
+                     p AND (q OR r) = (p AND q) OR (p AND r)
+De Morgan's laws:    NOT(p AND q) = NOT p OR NOT q
+                     NOT(p OR q)  = NOT p AND NOT q
+Absorption laws:     p OR (p AND q) = p
+                     p AND (p OR q) = p
+Negation laws:       p OR NOT p = T      p AND NOT p = F
+
+TIP - you've already used absorption:
+Remember when we simplified
+  (NOT p OR q) OR (NOT p AND q)
+down to just
+  NOT p OR q  ?
+That was the ABSORPTION LAW in action:
+  p OR (p AND q) = p,   with "p" standing in for "NOT p"
+
+DON'T memorize these by rote - recognize the SHAPE.
+Most exam questions are "apply one law at a time" chains,
+not "recall the name."
+
+----------------------------------------------------
+6. BUILDING NEW EQUIVALENCES ALGEBRAICALLY
+   (no truth table needed)
+----------------------------------------------------
+
+This is the actual skill tested - chain known
+equivalences together, one substitution at a time,
+citing which law you used at each step. This scales
+better than truth tables (2^n rows explodes fast -
+20 variables = over a million rows).
+
+WORKED EXAMPLE:
+Show NOT(p -> q) and (p AND NOT q) are equivalent,
+by algebra, not a table.
+
+  NOT(p -> q)
+    = NOT(NOT p OR q)        [conditional-disjunction equivalence]
+    = NOT(NOT p) AND NOT q   [De Morgan's law]
+    = p AND NOT q            [double negation law]
+
+Each line is justified by exactly ONE named law - that's
+the format you should reproduce in your own work.
+
+SECOND WORKED EXAMPLE:
+Show (p AND q) -> (p OR q) is a tautology, by reducing
+it to T.
+
+  (p AND q) -> (p OR q)
+    = NOT(p AND q) OR (p OR q)      [conditional-disjunction]
+    = (NOT p OR NOT q) OR (p OR q)  [De Morgan's]
+    = (NOT p OR p) OR (NOT q OR q)  [associative/commutative]
+    = T OR T                        [negation law, twice]
+    = T                             [domination law]
+
+Since it reduces to the constant T, it's a tautology.
+
+----------------------------------------------------
+7. SATISFIABILITY
+----------------------------------------------------
+
+A proposition is SATISFIABLE if there's AT LEAST ONE
+assignment of truth values that makes it True.
+It's UNSATISFIABLE if it's False under EVERY assignment
+(i.e. it's a contradiction).
+
+  - To prove satisfiable -> just exhibit one assignment
+    that works (a "solution").
+  - To prove unsatisfiable -> you need to argue EVERY
+    assignment fails (harder - usually by reasoning about
+    the structure, not brute-force checking each row).
+
+This is used heavily in practice (n-queens, Sudoku
+solvers, circuit design) but at our level it's mostly
+about the definition and reasoning through small examples.
+
+----------------------------------------------------
+SUMMARY CHECKLIST
+----------------------------------------------------
+[ ] Know the difference: tautology / contradiction / contingency
+[ ] Can state De Morgan's both directions from memory,
+    and apply them to negate compound English sentences
+[ ] Know p -> q = NOT p OR q cold - it's the bridge
+    between implication and OR/AND-based algebra
+[ ] Can chain 3-5 equivalence laws together to simplify
+    an expression or prove a tautology, citing the law
+    used each step
+[ ] Understand satisfiable vs. unsatisfiable and how to
+    argue each
+
+See Questions.txt for practice (drawn from Section 1.3
+exercises since no honour homework has been posted for
+this lecture yet).

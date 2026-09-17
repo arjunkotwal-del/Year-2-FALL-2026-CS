@@ -115,3 +115,83 @@ If checking against an older solutions manual:
   Section 1.2: #31
 (Numbering shifts slightly between editions - content
 is the same.)
+
+====================================================
+ANSWERS
+====================================================
+Don't read these until you've written your own answer.
+
+Q1
+  a) Proposition, TRUE (Boston is the capital of Massachusetts).
+  b) Proposition, FALSE (Tallahassee, not Miami, is Florida's capital).
+  c) Proposition, TRUE (2+3=5).
+  d) Proposition, FALSE (5+7=12, not 10).
+  e) NOT a proposition - depends on the value of x.
+  f) NOT a proposition - it's a question/command, not declarative.
+
+Q3
+  a) Linda is not younger than Sanjay.
+  b) Mei does not make more money than Isabella.
+  c) Moshe is not taller than Monica.
+  d) Abby is not richer than Ricardo.
+
+Q11
+  a) Swimming at the New Jersey shore is not allowed.
+  b) Swimming at the New Jersey shore is allowed and sharks
+     have been spotted near the shore.
+  c) Swimming at the New Jersey shore is not allowed, or
+     sharks have been spotted near the shore.
+  d) If swimming at the New Jersey shore is allowed, then
+     sharks have not been spotted near the shore.
+  e) If sharks have not been spotted near the shore, then
+     swimming at the New Jersey shore is allowed.
+  f) If swimming at the New Jersey shore is not allowed,
+     then sharks have not been spotted near the shore.
+  g) Swimming at the New Jersey shore is allowed if and
+     only if sharks have not been spotted near the shore.
+  h) Swimming is not allowed, and either swimming is
+     allowed or sharks have not been spotted (only
+     satisfiable when swimming isn't allowed and sharks
+     haven't been spotted).
+
+Q15 (p: drive over 65, q: get a speeding ticket)
+  a) NOT p
+  b) p AND NOT q
+  c) p -> q
+  d) NOT p -> NOT q
+  e) p -> q
+  f) q AND NOT p
+  g) q -> p
+
+Q33 - truth tables (rows in order TT, TF, FT, FF)
+  a) p AND NOT p:            F, F, F, F  (contradiction)
+  b) p OR NOT p:              T, T, T, T  (tautology)
+  c) (p OR NOT q) -> q:       T, F, T, F
+  d) (p OR q) -> (p AND q):   T, F, F, T
+  e) (p->q) <-> (NOT q->NOT p): T, T, T, T  (tautology -
+     a conditional and its contrapositive always match)
+  f) (p->q) -> (q->p):        T, T, F, T  (contingency)
+
+Q47 - bitwise operations
+  a) x=1011110, y=0100001
+     OR=1111111, AND=0000000, XOR=1111111
+  b) x=1111 0000, y=1010 1010
+     OR=1111 1010, AND=1010 0000, XOR=0101 1010
+  c) x=00 0111 0001, y=10 0100 1000
+     OR=10 0111 1001, AND=00 0100 0000, XOR=10 0011 1001
+  d) x=11 1111 1111, y=00 0000 0000
+     OR=11 1111 1111, AND=00 0000 0000, XOR=11 1111 1111
+
+Q35 (Section 1.2 - knights, knaves, spies)
+  THERE IS NO VALID ASSIGNMENT - the puzzle is unsolvable.
+
+  Reasoning: "I am not the spy" is true for everyone EXCEPT
+  the actual spy. Now consider whoever holds the KNAVE role:
+  a knave always lies, so their statement must be false. But
+  "I am not the spy" is false only for the actual spy - and
+  the knave is, by definition, a different person from the
+  spy. So the knave's statement is actually TRUE (since the
+  knave genuinely isn't the spy), contradicting the
+  requirement that knaves always lie. This contradiction
+  happens no matter who you assign as the knave, so no
+  consistent assignment exists.

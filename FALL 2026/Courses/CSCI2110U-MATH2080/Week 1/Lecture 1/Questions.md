@@ -82,3 +82,67 @@ On an island there are three kinds of people: **knights** (always tell the truth
 
 ## 7th edition cross-reference
 If you're checking against an older solutions manual: §1.1 #1, 3, 9, 11, 31, 43 and §1.2 #31 correspond to this set (numbering shifts slightly between editions — content is the same).
+
+---
+
+## Answers
+
+> [!warning] Attempt first
+> Don't read these until you've written your own answer. Checking cold answers against a solution key with no attempt teaches you nothing.
+
+### Q1
+a) Proposition, **True** (Boston is the capital of Massachusetts).
+b) Proposition, **False** (Tallahassee, not Miami, is Florida's capital).
+c) Proposition, **True** ($2+3=5$).
+d) Proposition, **False** ($5+7=12 \neq 10$).
+e) **Not** a proposition — truth depends on the value of x.
+f) **Not** a proposition — it's an imperative/question, not a declarative sentence.
+
+### Q3
+a) Linda is not younger than Sanjay.
+b) Mei does not make more money than Isabella.
+c) Moshe is not taller than Monica.
+d) Abby is not richer than Ricardo.
+
+### Q11
+a) Swimming at the New Jersey shore is not allowed.
+b) Swimming at the New Jersey shore is allowed and sharks have been spotted near the shore.
+c) Swimming at the New Jersey shore is not allowed, or sharks have been spotted near the shore.
+d) If swimming at the New Jersey shore is allowed, then sharks have not been spotted near the shore.
+e) If sharks have not been spotted near the shore, then swimming at the New Jersey shore is allowed.
+f) If swimming at the New Jersey shore is not allowed, then sharks have not been spotted near the shore.
+g) Swimming at the New Jersey shore is allowed if and only if sharks have not been spotted near the shore.
+h) Swimming is not allowed, and either swimming is allowed or sharks have not been spotted (this combination is actually only satisfiable when swimming isn't allowed and sharks haven't been spotted, since the first clause forces ¬p).
+
+### Q15 (p: drive over 65, q: get a speeding ticket)
+a) $\neg p$
+b) $p \wedge \neg q$
+c) $p \rightarrow q$
+d) $\neg p \rightarrow \neg q$
+e) $p \rightarrow q$
+f) $q \wedge \neg p$
+g) $q \rightarrow p$
+
+### Q33 — truth tables (rows in order TT, TF, FT, FF)
+a) $p \wedge \neg p$: **F, F, F, F** — contradiction.
+b) $p \vee \neg p$: **T, T, T, T** — tautology.
+c) $(p \vee \neg q) \rightarrow q$: **T, F, T, F**.
+d) $(p \vee q) \rightarrow (p \wedge q)$: **T, F, F, T**.
+e) $(p \rightarrow q) \leftrightarrow (\neg q \rightarrow \neg p)$: **T, T, T, T** — tautology (a conditional and its contrapositive always match).
+f) $(p \rightarrow q) \rightarrow (q \rightarrow p)$: **T, T, F, T** — contingency.
+
+### Q47 — bitwise operations
+a) x = 1011110, y = 0100001
+   OR = 1111111, AND = 0000000, XOR = 1111111
+b) x = 1111 0000, y = 1010 1010
+   OR = 1111 1010, AND = 1010 0000, XOR = 0101 1010
+c) x = 00 0111 0001, y = 10 0100 1000
+   OR = 10 0111 1001, AND = 00 0100 0000, XOR = 10 0011 1001
+d) x = 11 1111 1111, y = 00 0000 0000
+   OR = 11 1111 1111, AND = 00 0000 0000, XOR = 11 1111 1111
+
+### Q35 (§1.2 — knights, knaves, spies)
+**There is no valid assignment — the puzzle is unsolvable.**
+
+Reasoning: the statement "I am not the spy" is true for everyone *except* whoever the actual spy is. Now consider whoever holds the **knave** role: a knave always lies, so their statement must be false. But "I am not the spy" is false only for the actual spy — and the knave, by definition, is a different person from the spy. So the knave's statement is actually **true** (since the knave genuinely isn't the spy), which contradicts the requirement that knaves always lie. This contradiction arises no matter which of A, B, C you assign as the knave — so no consistent assignment of knight/knave/spy exists for these three statements.
+

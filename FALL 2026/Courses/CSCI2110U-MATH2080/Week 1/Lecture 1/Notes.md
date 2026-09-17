@@ -175,10 +175,10 @@ A **bit string** is a sequence of 0s/1s (1 = true, 0 = false). Apply connectives
 ---
 
 ## Summary checklist
-- [ ] Can build a truth table from scratch for any connective, unaided
-- [ ] Know p → q is false in exactly one case (T,F)
-- [ ] Can produce converse/inverse/contrapositive without looking it up, and know only contrapositive is equivalent
-- [ ] Comfortable translating "only if," "unless," "sufficient," "necessary" into formulas
-- [ ] Can do bitwise OR/AND/XOR by hand
+- [x] Can build a truth table from scratch for any connective, unaided ✅ 2026-09-15
+- [x] Know p → q is false in exactly one case (T,F) ✅ 2026-09-15
+- [x] Can produce converse/inverse/contrapositive without looking it up, and know only contrapositive is equivalent ✅ 2026-09-15
+- [x] Comfortable translating "only if," "unless," "sufficient," "necessary" into formulas ✅ 2026-09-15
+- [x] Can do bitwise OR/AND/XOR by hand ✅ 2026-09-15
 
 **Next:** → [[Questions]] (Week 1 honour homework)

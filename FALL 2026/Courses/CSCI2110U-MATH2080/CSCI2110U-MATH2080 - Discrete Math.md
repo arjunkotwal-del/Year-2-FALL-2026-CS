@@ -67,6 +67,18 @@ credit_hours: 3
 - Textbook (Rosen 8th ed.) added to vault: [[files/Rosen - Discrete Mathematics and Its Applications (8th ed).pdf]].
 - In progress: operator precedence practice — parenthesizing `p ∨ q ∧ ¬r ↔ p ∧ r` step by step.
 
+### 2026-09-14 — Lecture 2 (Propositional Equivalences, §1.3) — filed under Week 2/Lecture 1
+- Confirmed via Canvas: real course PDF is `MATH2080_Lecture2_Sections_1p3_PropEquivs.pdf`, saved to [[files/MATH2080_Lecture2_Sections_1p3_PropEquivs.pdf]]. Real honour homework: §1.3 #1, 5, 7, 11, 19, 35 (8th ed).
+- Built [[Week 2/Lecture 1/Notes]] and [[Week 2/Lecture 1/Questions]] — covers tautology/contradiction, De Morgan's, the full equivalence-law table, chaining equivalences algebraically, contrapositive equivalence, satisfiability.
+- Practiced live: tautology-spotting shortcuts (`X ∨ T`, `X ∨ ¬X`), De Morgan negation of compound English sentences, simplifying `¬(¬p∨q)∨(p∧q)` down to `¬p∨q` via De Morgan's + double negation + absorption.
+- Note on organization: lecture numbering is continuous across the course (Lecture 1, 2, 3...) but filed by calendar week here — Lecture 2 (Sept 14, Monday) is the first lecture of Week 2, hence `Week 2/Lecture 1/`.
+
+### 2026-09-17 — Lecture 3 (Predicate Logic & Nested Quantifiers, §1.4–1.5) — filed under Week 2/Lecture 2
+- Confirmed via Canvas: real course PDF is `MATH2080_Lecture3_Sections_1p4_1p5_PredLogic_and_NestedQuants.pdf`, saved to [[files/MATH2080_Lecture3_Sections_1p4_1p5_PredLogic_and_NestedQuants.pdf]]. Real honour homework: §1.4 #7, 9, 11, 15, 53 and §1.5 #1, 9, 11, 27, 31 (8th ed).
+- Built [[Week 2/Lecture 2/Notes]] and [[Week 2/Lecture 2/Questions]] — covers predicates, universal/existential quantifiers, restricted domains, precedence/binding, quantifier equivalences (what distributes and what doesn't), De Morgan's for quantifiers, translating English with nested quantifiers, order-of-quantifiers (∃∀ vs ∀∃), and negating nested quantifiers.
+- Added [[Review/Week 2/Lecture 2/Review]].
+- Recurring pattern flagged again: order/direction sensitivity (converse≠original in Weeks 1-2, now ∃∀≠∀∃ here) — treat as a near-certain exam topic given it's been emphasized three times running.
+
 ### 2026-09-10 — Live Lecture 1 transcript notes (confirms/extends tutoring notes above)
 - Instructor confirmed **contrapositive is the important one** to internalize (converse/inverse mainly matter as common-mistake traps, e.g. "differentiable ⟹ continuous" vs the false converse "continuous ⟹ differentiable").
 - Instructor's mental model for p→q: think of it as a **contract** — "if you pay $1000, I rent the apartment." Only broken when you pay (p=T) and don't get the apartment (q=F). Matches the "promise" framing already in [[Week 1/Lecture 1/Notes]].

@@ -1,0 +1,147 @@
+====================================================
+LECTURE 2 - PRACTICE QUESTIONS
+CSCI2110U / MATH2080 - Discrete Math
+====================================================
+
+NOTE: NOT official honour homework - no homework list has
+been posted for this lecture yet (no transcript available).
+This set is hand-picked from Rosen Section 1.3 exercises
+to cover the core skills: verifying equivalences, De
+Morgan's, and algebraic proof chains. Swap in the real
+assigned numbers once posted.
+
+----------------------------------------------------
+
+Q1 - Verify with truth tables
+Use truth tables to verify these equivalences:
+  a) p AND T = p
+  b) p OR F = p
+  c) p OR p = p
+  d) p AND p = p
+
+Q6 - De Morgan by truth table
+Use a truth table to verify the first De Morgan law:
+  NOT(p AND q) = NOT p OR NOT q
+
+Q7 - Negate with De Morgan's
+Use De Morgan's laws to find the negation of each:
+  a) Jan is rich and happy.
+  b) Carlos will bicycle or run tomorrow.
+  c) Mei walks or takes the bus to class.
+  d) Ibrahim is smart and hard working.
+
+Q9 - Eliminate the conditional
+For each, use the conditional-disjunction equivalence to
+find an equivalent proposition with no -> in it:
+  a) p -> NOT q
+  b) (p -> q) -> r
+  c) (NOT q -> p) -> (p -> NOT q)
+
+Q17 - Verify absorption
+Use truth tables to verify the absorption laws:
+  a) p OR (p AND q) = p
+  b) p AND (p OR q) = p
+
+Q20 - Equivalence proof (matches what we practiced live)
+Show that p <-> q and (p AND q) OR (NOT p AND NOT q) are
+logically equivalent. (Show both sides true, or both
+false, for exactly the same combinations of truth values -
+whichever is easier.)
+
+Q22 - Algebraic chain
+Show that NOT p <-> q and p <-> NOT q are logically
+equivalent.
+
+Q26 - Algebraic chain
+Show that (p -> q) AND (p -> r) and p -> (q AND r) are
+logically equivalent.
+
+Q33 - Prove a tautology via equivalences (not a truth table)
+Show that [(p -> q) AND (q -> r)] -> (p -> r) is a
+tautology. Reduce it to T using the named laws, one step
+at a time - like the worked example in Notes.txt section 6.
+
+Q65 - Satisfiability
+Determine whether each of these compound propositions is
+satisfiable:
+  a) (p OR NOT q) AND (NOT p OR q) AND (NOT p OR NOT q)
+  b) (p -> q) AND (p -> NOT q) AND (NOT p -> q) AND (NOT p -> NOT q)
+  c) (p <-> q) AND (NOT p <-> q)
+
+----------------------------------------------------
+BONUS - from tutoring session
+----------------------------------------------------
+Simplify, showing each law used at each step:
+
+  NOT(NOT p OR q) OR (p AND q)
+
+====================================================
+ANSWERS
+====================================================
+Don't read these until you've written your own answer.
+
+Q1 - verify with truth tables
+  a) p AND T matches p exactly (T->T, F->F)
+  b) p OR F matches p exactly (T->T, F->F)
+  c) p AND F is always F, matching constant F
+  d) p OR T is always T, matching constant T
+  e) p OR p matches p exactly
+  f) p AND p matches p exactly
+
+Q5 - distributive law (8 rows, p q r order TTT..FFF)
+  q OR r:            T T T F T T T F
+  p AND (q OR r):    T T T F F F F F
+  p AND q:           T T F F F F F F
+  p AND r:           T F T F F F F F
+  (p AND q) OR (p AND r): T T T F F F F F
+  Columns "p AND (q OR r)" and "(p AND q) OR (p AND r)"
+  match in every row -> confirmed equivalent.
+
+Q7 - negate with De Morgan's
+  a) Jan is not rich, or Jan is not happy.
+  b) Carlos will not bicycle tomorrow and will not run
+     tomorrow.
+  c) Mei does not walk and does not take the bus to class.
+  d) Ibrahim is not smart, or he is not hard working.
+
+Q11 - prove tautologies (all six ARE tautologies)
+  a) (p AND q) -> p:            T,T,T,T
+  b) p -> (p OR q):              T,T,T,T
+  c) NOT p -> (p -> q):          T,T,T,T
+  d) (p AND q) -> (p -> q):      T,T,T,T
+  e) NOT(p -> q) -> p:           T,T,T,T
+  f) NOT(p -> q) -> NOT q:       T,T,T,T
+  (rows in order TT, TF, FT, FF)
+
+Q19 - is (NOT q AND (p -> q)) -> NOT p a tautology?
+  YES. All four rows (TT,TF,FT,FF) evaluate to T. This is
+  the logical form of MODUS TOLLENS ("if p->q and not-q,
+  then not-p").
+
+Q35 - show NOT equivalent
+  (p -> q) -> r  and  p -> (q -> r)  are NOT equivalent.
+  Counterexample: p=F, q=F, r=F
+    (p -> q) -> r = (F->F) -> F = T -> F = F
+    p -> (q -> r) = F -> (F->F) = F -> T = T
+  Different results on the same input -> not equivalent.
+
+TIME PERMITTING BONUS EXERCISES - answers
+  1. (NOT p AND (p->q)) -> NOT q is NOT a tautology.
+     Counterexample: p=F, q=T gives F.
+  2. (p AND q) -> r  vs  (p->r) AND (q->r) are NOT
+     equivalent. Counterexample: p=T,q=F,r=F gives T vs F.
+  3. 16 different truth tables (2^4 possible output
+     columns for a 4-row table).
+  4. (p OR NOT q) AND (NOT p OR q) AND (NOT p OR NOT q) IS
+     satisfiable - try p=F, q=F (all three clauses true).
+  5. True when exactly two of p,q,r are true:
+     (p AND q AND NOT r) OR (p AND NOT q AND r) OR
+     (NOT p AND q AND r)
+
+EXTRA - simplify NOT(NOT p OR q) OR (p AND q)
+  NOT(NOT p OR q) = p AND NOT q   [De Morgan's + double negation]
+  Expression becomes: (p AND NOT q) OR (p AND q)
+  = p AND (NOT q OR q)             [distributive law]
+  = p AND T                        [negation law]
+  = p                              [identity law]
+  FINAL ANSWER: just p

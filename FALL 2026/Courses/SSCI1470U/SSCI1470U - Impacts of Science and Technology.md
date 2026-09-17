@@ -24,18 +24,18 @@ credit_hours: 3
 ## Discussion boards
 Each has a separate original-post deadline and peer-response deadline (11:59pm EST/EDT).
 
-| # | Topic | Original post | Responses |
-|---|---|---|---|
-| 1 | What is science? | Sept 16 | Sept 18 |
-| 2 | The Search for Uncomfortable Truths | Sept 23 | Sept 25 |
-| 3 | The Status of Expertise in a 'post-truth' world | Sept 30 | Oct 2 |
-| 4 | Science and Public Trust | Oct 7 | Oct 9 |
-| 5 | To Create or Not to Create | Oct 21 | Oct 24 |
-| 6 | Social Media | Oct 28 | Oct 30 |
-| 7 | Social Media II | Nov 4 | Nov 6 |
-| 8 | Surveillance Capitalism | Nov 11 | Nov 13 |
-| 9 | Artificial Intelligence | Nov 18 | Nov 20 |
-| 10 | Biotechnology | Nov 25 | Nov 27 |
+| # | Topic | Original post | Status | Responses | Status |
+|---|---|---|---|---|---|
+| 1 | What is science? | Sept 16 | ✅ done | Sept 18 | ⬜ not done |
+| 2 | The Search for Uncomfortable Truths | Sept 23 | ⬜ | Sept 25 | ⬜ |
+| 3 | The Status of Expertise in a 'post-truth' world | Sept 30 | ⬜ | Oct 2 | ⬜ |
+| 4 | Science and Public Trust | Oct 7 | ⬜ | Oct 9 | ⬜ |
+| 5 | To Create or Not to Create | Oct 21 | ⬜ | Oct 24 | ⬜ |
+| 6 | Social Media | Oct 28 | ⬜ | Oct 30 | ⬜ |
+| 7 | Social Media II | Nov 4 | ⬜ | Nov 6 | ⬜ |
+| 8 | Surveillance Capitalism | Nov 11 | ⬜ | Nov 13 | ⬜ |
+| 9 | Artificial Intelligence | Nov 18 | ⬜ | Nov 20 | ⬜ |
+| 10 | Biotechnology | Nov 25 | ⬜ | Nov 27 | ⬜ |
 
 **Rules:** original post ~125–150 words; respond to ≥2 peers (max 5 comments, max 2 original posts); each post/comment capped at 150 words; can't see others' posts until you've posted; use REPLY (not Create Thread) for responses; **no lates** without medical/bereavement documentation (grade of 0 otherwise).
 
