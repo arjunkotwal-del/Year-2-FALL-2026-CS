@@ -8,7 +8,9 @@
 - [ ] **Employee/Manager example**: reproduce the `Employee` superclass and `Manager` subclass from memory, including `this` usage in the constructor.
 - [ ] **Why `workerBee.setBonus(5000)` fails**: explain the one-directional nature of inheritance in your own words (Q5 in questions.md).
 - [ ] **Write your own subclass** — complete Q4 (`Custodian extends Employee`) without copying the `Manager` example directly.
-- [ ] Flagged gap: "Relationships" was listed in the lecture outline but had no dedicated slide content — check if this was covered live and fill the gap in notes.md if so.
+- [ ] **New from transcript**: explain why Java pushes encapsulation via compile-time error checking (vs. Python's runtime-permissive style) — this was the actual rationale given live, not just "it's good practice."
+- [ ] **New from transcript**: the Animal "big 5" / Mammal-adds-3 example — explain why "mammals have mammary glands" doesn't imply "animals have mammary glands." Same logic as the Employee/Manager one-directional rule.
+- [x] "Relationships" outline gap — resolved. No dedicated section; it's just the natural transition from OOP/classes into Inheritance in the live lecture.
 
 ## Status
-Not yet reviewed.
+Notes updated from live transcript (2026-09-17). Practice questions still open.

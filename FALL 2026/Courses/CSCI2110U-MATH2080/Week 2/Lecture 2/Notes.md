@@ -35,7 +35,7 @@ An $n$-variable predicate is called an **n-ary predicate**.
 | $\exists x\, P(x)$ | existential | "there exists x such that P(x)" | P(x) is true for **at least one** x | P(x) is false for every x |
 
 **The domain (universe of discourse) must always be stated** — the same predicate can be true or false depending purely on what domain you're quantifying over.
-
+	
 **Worked example:** $P(x)$: "$x^2 \geq x$"
 - Domain = all real numbers: $\forall x\, P(x)$ is **False** — counterexample $x = 0.5$: $0.25 \geq 0.5$ is false.
 - Domain = all integers: $\forall x\, P(x)$ is **True** — no integer strictly between 0 and 1 breaks it.

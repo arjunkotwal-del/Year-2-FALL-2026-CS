@@ -1,41 +1,114 @@
-# Lecture 1 — Introduction (CSCI2000U)
+# 📘 Lecture 1 — Introduction
+*CSCI2000U — Scientific Data Analysis*
 
-## Course logistics
-- Instructor: Dr. Steven R. Livingstone — Science Building (UA), Room 4035
-- Contact: via Canvas email; office hours 11am–12pm Tuesday
-- Course outline / syllabus, dates, and policies are on Canvas under **Syllabus**
-- Lecture notes posted online through Canvas
-- Supplemental textbooks (optional):
-  - *Python for Data Analysis*, 3rd ed., McKinney, 2022
-  - *How to Think Like a Computer Scientist*, Elkner, Downey & Meyers
+---
 
-## Attendance & active learning
-- Attendance is *expected but not required*
-- Research: attendance is the single biggest predictor of university grades (bigger than admissions test scores, study habits/skills)
-- Bring a laptop — lectures include small, ungraded programming challenges (active learning)
+## 🧑‍🏫 Course logistics
 
-## Tutorials
-- Start in **Week 2**, assigned by lecture stream — attend only your assigned section
-- Tutorials are the primary contact point for help; TAs support learning there
-- 10 tutorial exercises total, **ungraded**
+| | |
+|---|---|
+| **Instructor** | Dr. Steven R. Livingstone |
+| **Office** | Science Building (UA), Room 4035 |
+| **Contact** | Canvas email |
+| **Office hours** | Tuesday 11am–12pm |
+| **Outline / syllabus** | Canvas → **Syllabus** tab |
 
-## Assessment breakdown
-| Item | Quantity | Weight | Graded? |
-|---|---|---|---|
-| Worksheets | 6 | 20% (3.33% each) | Yes |
-| Midterm exam | 1 | 40% | Yes |
-| Final exam | 1 | 40% | Yes |
-| Tutorial exercises | 10 | 0% | No (ungraded) |
+> [!tip] Textbooks (optional, supplemental)
+> - *Python for Data Analysis*, 3rd ed. — McKinney, 2022
+> - *How to Think Like a Computer Scientist* — Elkner, Downey & Meyers
 
-- Worksheets: every other week (biweekly). W1–3 = online Canvas quizzes; W4–8 = submittable Jupyter Notebooks (upload `.ipynb` to Canvas)
-- **Midterm**: Week 8, Wednesday Nov 4 — in person, closed book, via Canvas + Respondus LockDown Browser. One double-sided US-letter page of notes (printed or handwritten) allowed.
-- **Final exam**: same structure as midterm.
+---
 
-## Data science context
-- Data science sits at the intersection of Mathematics, Computer Science, and Domain Expertise
-- Sub-overlaps: statistical research, data processing, machine learning
-- Example: the instructor's own Affective Data Science Lab (affectivedatascience.com) — uses stats + programming + ML to study emotion, e.g. the RAVDESS dataset (emotional speech/song)
-- Examples of scientific data analysis in practice: student open-source packages (EMGFlow — EMG signal processing, PyFAME — facial manipulation for psychology research, PyOcclusion — image occlusion)
+## 🎯 Attendance & active learning
 
-## Key takeaway
-This course teaches the toolchain (UNIX/shell, git, Python, NumPy, Pandas) used to actually *do* scientific/data-science work — not just theory.
+> [!important] Attendance is *expected but not required*
+> Research shows attendance is the **biggest single predictor** of university grades — bigger than admissions test scores, study habits, or study skills.
+
+- 🎒 **Bring a laptop** — lectures include small, ungraded programming challenges ("active learning")
+- Lecture convention icons used throughout slides:
+
+| Icon meaning | What it signals |
+|---|---|
+| 🧑‍🏫 Important concept | Core idea to remember |
+| 🏆 Learning outcome | What you should be able to do after |
+| ❓ Class question | Discussion prompt |
+| 💬 Class discussion | Group talk |
+| 💻 Challenge activity | Hands-on coding, ungraded |
+
+---
+
+## 🧪 Tutorials
+
+```
+Week 1 ─── lecture only
+Week 2 ─── ★ tutorials begin ★
+Week 3+ ── weekly tutorials continue
+```
+
+- Assigned by lecture stream — **attend only your section** (some are fully booked)
+- Your **primary contact point** for help — TAs are there to support your learning
+- 10 tutorial exercises total → **ungraded**
+
+---
+
+## 💯 Assessment breakdown
+
+| Item | Qty | Weight | Graded? |
+|---|:---:|:---:|:---:|
+| 📝 Worksheets | 6 | 20% (3.33% ea) | ✅ |
+| 📄 Midterm exam | 1 | 40% | ✅ |
+| 📄 Final exam | 1 | 40% | ✅ |
+| 🧪 Tutorial exercises | 10 | 0% | ❌ |
+
+```
+Worksheets 20% ████
+Midterm    40% ████████
+Final      40% ████████
+```
+
+> [!note] Worksheet format changes mid-course
+> - **Weeks 1–3** → online Canvas quizzes
+> - **Weeks 4–8** → submittable Jupyter Notebooks (`.ipynb` uploaded to Canvas)
+
+> [!warning] Midterm exam details
+> - 📅 **Week 8, Wednesday November 4**
+> - In person, **closed book**
+> - Canvas + **Respondus LockDown Browser**
+> - Allowed: **one page**, US letter, **double-sided**, printed or handwritten
+> - Final exam follows the **same structure**
+
+---
+
+## 🔬 Where data science fits
+
+```
+        Mathematics
+            ╲
+   Statistical  ╲
+    Research      ╲
+            ╲        ●  DATA SCIENCE
+            ╱        ╱  (center overlap)
+   Machine        ╱
+   Learning     ╱
+            ╱  Data
+Computer     Processing
+Science    ╱
+```
+
+Data science sits at the intersection of:
+- **Mathematics**
+- **Computer Science**
+- **Domain Expertise**
+
+with sub-overlaps in statistical research, data processing, and machine learning.
+
+> [!example] Real example — instructor's own lab
+> **Affective Data Science Lab** ([affectivedatascience.com](https://affectivedatascience.com)) — combines stats + programming + ML to study emotion.
+> - Built the **RAVDESS** dataset (emotional speech/song) — 194K+ views, 454K+ downloads on Zenodo
+> - Student open-source projects: **EMGFlow** (EMG signal processing), **PyFAME** (facial-manipulation research), **PyOcclusion** (image occlusion)
+
+---
+
+## 🔑 Key takeaway
+
+> This course teaches the **toolchain** — UNIX/shell, git, Python, NumPy, Pandas — that scientists actually use to *do* data analysis, not just the theory behind it.

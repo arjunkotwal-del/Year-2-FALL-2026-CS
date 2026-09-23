@@ -32,6 +32,8 @@ credit_hours: 3
 - Pop quizzes: in-lecture (short, ~2 marks, 1 question) + tutorial quizzes (longer, ~4-5 questions, 8-10 marks). Tutorial quizzes open Monday–Friday each week (not just during tutorial), one attempt only, so don't waste it — go to tutorial and resolve confusion first.
 - **Quiz bonus mechanic:** total quiz marks across the term (e.g. 80) are scaled against **75% of the total**, not 100%. Example: 80 total marks available → denominator used is 60 (75% of 80). Score 55/80 → counted as 55/60. Score 80/80 → still 80/60, i.e. bonus above 100% on this component. Component is worth 10% of final grade overall.
 - Missed Canvas test → weight rolls into final exam. Missed midterm → needs SAS/paperwork, deferred to final exam (don't rely on this — final is cumulative and historically harder to do well on than the midterm).
+- **Confirmed 2026-09-17: in-lecture quizzes DO count** toward the grade. The Canvas gradebook weight table shows a "Quizzes L" category at 0% (separate from "Quizzes T" at 10%) — that 0% is an unused/placeholder category, not the real policy, since lecture quizzes are graded in practice.
+- **Confirmed 2026-09-17: the written syllabus body is the authoritative source**, not the Canvas gradebook weight table. Gradebook table (Midterm 25%, Canvas Tests 20%) does not reflect actual weighting — go with the syllabus: **Midterm 30%, Canvas Tests 5%+5%=10%, Assignments 10%, Quizzes 10%, Final 40%.**
 
 ## Topic outline
 1. Propositional logic
@@ -78,6 +80,20 @@ credit_hours: 3
 - Built [[Week 2/Lecture 2/Notes]] and [[Week 2/Lecture 2/Questions]] — covers predicates, universal/existential quantifiers, restricted domains, precedence/binding, quantifier equivalences (what distributes and what doesn't), De Morgan's for quantifiers, translating English with nested quantifiers, order-of-quantifiers (∃∀ vs ∀∃), and negating nested quantifiers.
 - Added [[Review/Week 2/Lecture 2/Review]].
 - Recurring pattern flagged again: order/direction sensitivity (converse≠original in Weeks 1-2, now ∃∀≠∀∃ here) — treat as a near-certain exam topic given it's been emphasized three times running.
+
+### 2026-09-17 — Live Lecture 3 transcript (confirms/extends notes above)
+- Added [[Week 2/Lecture 2/Transcript]] with the raw transcript.
+- Confirms Notes.md is accurate — all definitions, the rational/irrational counterexample, and the De Morgan-for-quantifiers mechanics match what he actually taught live.
+- **New content not in the PDF alone:** the reciprocal example (∀x≠0 ∃y(xy=1)) for explaining why ∃∀ vs ∀∃ order matters — y=1/x depends on which x you picked, so it can't come first; the "exactly two people Lynn loves" full derivation, built up in 3 attempts (existence → distinctness → uniqueness clause ruling out all other Z); the non-negative-product translation example as a closing example for the section.
+- **IMPORTANT: he released a live in-lecture quiz on negating `∃x∀y(P(x,y)∧¬Q(x,y))`, then killed/invalidated it mid-lecture** after a student flagged his answer key had an error (he'd mistakenly counted a triple negation as a double negation). He said he'll re-ask the same type of question on the **tutorial quiz** instead — so this exact question type is very likely to reappear in tutorial, worth practicing the corrected version.
+- Separately, this transcript **confirms the correct method** for the practice exam question you got 0/2 on (negating `∀x∃y(¬P(x,y)→Q(x,y))`): convert the implication to `¬(¬P)∨Q ≡ P∨Q` first via double negation, THEN negate the whole quantified statement → `∃x∀y(¬P(x,y)∧¬Q(x,y))`. Matches what we worked out together — good confirmation the approach was right.
+
+### 2026-09-21 — Week 3 (Lectures 4 & 5: Rules of Inference §1.6, Intro to Proofs §1.7)
+- Confirmed via Canvas: both already posted ahead of schedule. Files saved: [[files/MATH2080_Lecture4_Sections_1p6_RulesOfInference.pdf]] and [[files/MATH2080_Lecture5_Sections_1p7_ProofsIntro.pdf]].
+- Real honour homework confirmed: §1.6 #1, 3, 9, 19, 23, 29, 35 (same both editions); §1.7 8th ed #5, 9, 11, 29, 37, 41 (7th ed #5, 9, 11, 27, 35, 39).
+- Built [[Week 3/Lecture 1/Notes]] + [[Week 3/Lecture 1/Questions]] (Rules of Inference: the 8 propositional rules, quantifier rules, fallacies, multi-step proof format) and [[Week 3/Lecture 2/Notes]] + [[Week 3/Lecture 2/Questions]] (Intro to Proofs: direct proof, contraposition, contradiction, biconditional proofs, counterexamples — the actual proof-writing techniques used for the rest of the course).
+- Added [[Review/Week 3/Lecture 1/Review]] and [[Review/Week 3/Lecture 2/Review]] — Lecture 5 (proofs) flagged as **highest priority review** this term, directly matching the study guide's stated highest-risk area.
+- Cross-lecture note: proof by contraposition in Lecture 5 is literally the contrapositive-equivalence fact from Weeks 1-2, now applied as an active proof technique rather than just an equivalence check — good continuity to point out if it helps it stick.
 
 ### 2026-09-10 — Live Lecture 1 transcript notes (confirms/extends tutoring notes above)
 - Instructor confirmed **contrapositive is the important one** to internalize (converse/inverse mainly matter as common-mistake traps, e.g. "differentiable ⟹ continuous" vs the false converse "continuous ⟹ differentiable").

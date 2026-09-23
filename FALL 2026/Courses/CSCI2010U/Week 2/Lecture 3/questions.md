@@ -1,7 +1,7 @@
 # Lecture 3 — Practice Questions
 
 ## Q1. Identifying classes (nouns/verbs heuristic)
-The lecture posed this in class without giving an answer. Attempt it yourself: think about a software system for representing a **vehicle**. What are some possible classes, and what methods might each have? Use the nouns-are-classes, verbs-are-methods heuristic from the lecture.
+The lecture answered this live with: Engine, Radio, Wipers, Transmission/gear stick, Wheels, Windows. Before checking that, attempt it yourself from scratch: think about a software system for representing a **vehicle**. What are some possible classes, and what methods might each have? Use the nouns-are-classes, verbs-are-methods heuristic. Then compare your answer to the lecture's — did you pick different classes? Can you justify why something should or shouldn't get its own class (hint: the "multiple instances, each with state and identity" principle from the lecture)?
 
 ## Q2. "Is-a" test
 For each pair, state whether an inheritance relationship makes sense, and if so, which class should `extend` which:
