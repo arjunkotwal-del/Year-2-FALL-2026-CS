@@ -64,12 +64,16 @@ Always right-skewed, starts at height λ, decays toward (never touching) 0.
 > 4. As w→∞: e^(−λw) → 0 (exponential decay). The c-term has no w, stays constant.
 > 5. Double negative flips sign → **final answer: e^(−λc)**
 
-> [!tip] Formula-sheet shortcuts — use these, don't re-derive every time
+> [!tip] Formula-sheet shortcuts — use these, don't re-derive every time (confirmed against actual Term Test 1 formula sheet)
 > - **P(x > c) = e^(−λc)**
 > - **P(x ≤ c) = 1 − e^(−λc)**
 > - **P(a < x < b) = e^(−λa) − e^(−λb)** (bigger "greater-than" region minus the excess)
+> - **Mean: μ = 1/λ** ⭐ confirmed from formula sheet, not derived in lecture — just apply it
 >
 > On tests, the professor will **always explicitly say** "exponential distribution" in the question — you're never expected to detect it. Generic PDFs (not named) must still be integrated directly — no shortcut available.
+
+> [!example] Worked — exponential mean
+> λ = 0.5 → μ = 1/0.5 = **2**
 
 > [!example] Worked — response time, λ = 0.2
 > - **At least 10 sec**: P(x≥10) = e^(−0.2×10) = e^(−2) ≈ **0.1353** → "≈14% of response times are at least 10 seconds"
