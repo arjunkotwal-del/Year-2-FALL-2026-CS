@@ -7,8 +7,8 @@ tags: [notes, week3, lecture2, proofs]
 ← [[../Lecture 1/Notes|Week 3 Lecture 1 (Rules of Inference)]] | ← [[../../CSCI2110U-MATH2080 - Discrete Math]]
 Textbook: [[../../files/Rosen - Discrete Mathematics and Its Applications (8th ed).pdf]] (Section 1.7, pages 85-95)
 
-> [!info] Confirmed against the real posted lecture PDF
-> Cross-checked against [[../../files/MATH2080_Lecture5_Sections_1p7_ProofsIntro.pdf]] (Canvas, Lecture 5, Sept 24). Slide skeleton filled in using the textbook's own numbered examples.
+> [!info] Confirmed against the real posted lecture PDF AND the live lecture transcript
+> Cross-checked against [[../../files/MATH2080_Lecture5_Sections_1p7_ProofsIntro.pdf]] (Canvas, Lecture 5, Sept 24) and [[Transcript]] (raw live transcript). Everything below matches what was actually taught, plus a few technique notes only the live lecture revealed (marked below).
 
 > [!warning] This is the payoff lecture
 > Everything since Week 1 — connectives, equivalences, quantifiers, rules of inference — was building toward THIS. This is where you actually learn to write a mathematical proof from scratch. Confirmed by the instructor: proof questions on the midterm/final are usually just "know the definition + apply one technique," not creative leaps.
@@ -93,6 +93,15 @@ This is odd by definition. We've proven the contrapositive, so the original stat
 > [!tip] When to reach for contraposition instead of direct
 > If your hypothesis is something *hard to use directly* (like "x is irrational" — hard to build FROM), but the negated conclusion gives you something concrete to work WITH (like "x is even" — easy to plug in as n=2k), switch to contraposition.
 
+> [!important] General strategy rule (confirmed live): simple → complex, not the reverse
+> It's always easier to reason FROM simple info (n is even/odd) TOWARD complex info (n², n²+2n, etc.) than the other way around. This is exactly why "if n² is even, then n is even" gets proven via its contrapositive "if n is odd, then n² is odd" — going from n² back to n has no clean algebraic move (no rule like "√ of an even number is even"), but going from n forward to n² is just substitution. When picking a proof technique, ask: which direction lets me go simple→complex?
+
+> [!tip] "Without Loss Of Generality" (WLOG)
+> When a proof has two symmetric cases (e.g. "m even, n odd" vs "m odd, n even"), you often only need to write out ONE of them and say "WLOG, assume m is even and n is odd" — the other case is literally the same proof with the labels swapped, so writing it out again adds nothing. Use this to skip redundant case-writing, but only when the cases are truly symmetric (swapping labels doesn't change the argument).
+
+> [!warning] Use different letters for independent unknowns
+> When m and n are BOTH being expressed via a definition (e.g. m=2k since m is even, n=2l+1 since n is odd), use a **different letter for each** (k vs l). Reusing n=2k+1 right after m=2k would silently force m and n to be consecutive integers — turning your general proof into a much weaker special case by accident.
+
 ---
 
 ## 6. Proof by contradiction
@@ -105,13 +114,19 @@ This is odd by definition. We've proven the contrapositive, so the original stat
 
 Squaring both sides: 2 = a²/b², so a² = 2b².
 
-This means a² is even. (A fact worth knowing: if a² is even, then a itself must be even — provable separately.) So a = 2c for some integer c. Substituting:
+This means a² is even. (A fact worth knowing: if a² is even, then a itself must be even — this is a **lemma**, worth proving separately via its own contrapositive: "if a is odd, then a² is odd" — same technique as the n²+3 example below.) So a = 2c for some integer c. Substituting:
 
 (2c)² = 2b² → 4c² = 2b² → b² = 2c²
 
 So b² is even too, meaning b is even.
 
 **Contradiction:** we assumed a and b share NO common factors, but we've just shown both a and b are even — meaning they share a factor of 2. Contradiction. So our assumption (√2 is rational) must be false — √2 is irrational. ∎
+
+> [!warning] The "reduced fraction" assumption is load-bearing, not optional
+> If you skip stating "assume a/b is in lowest terms (no common factors)" at the start, you have nothing left to contradict at the end. The whole proof's contradiction is: "we assumed no common factors, but derived that both a and b are even" — without the initial reduced-form assumption, discovering both are even isn't a contradiction of anything. Always state it up front.
+
+> [!tip] Declare your technique explicitly
+> Write "Proof by contraposition" or "Proof by contradiction" as a header before you start. Otherwise the reader (or the marker) sees you assuming the negated conclusion and may think you've misunderstood the premise — declaring the technique up front tells them exactly why your starting assumption looks the way it does.
 
 > [!tip] This exact proof template generalizes
 > The same structure proves √3, cube-root-of-2, and in general √n is irrational whenever n isn't a perfect square.
@@ -124,9 +139,12 @@ To prove p ↔ q, prove **both directions**: p→q AND q→p, usually as two sep
 
 **Worked example:** Show that n² + 3 is odd if and only if n is even.
 
-**(⇒) direction:** Assume n is even, so n=2k. Then n²+3 = 4k²+3 = 2(2k²+1)+1 — odd, by definition. ✓
+> [!tip] Do the easier direction first
+> When proving a biconditional, tackle whichever direction is more straightforward first — there's no rule that says you must go "⇒" before "⇐."
 
-**(⇐) direction — proved via contrapositive:** Instead of assuming n²+3 is odd directly, prove the contrapositive "if n is odd, then n²+3 is even." Assume n=2k+1. Then n²+3 = (2k+1)²+3 = 4k²+4k+1+3 = 4k²+4k+4 = 2(2k²+2k+2) — even, by definition. This proves the contrapositive, so the original (⇐) direction holds. ✓
+**(⇐) direction, done first (direct proof — easier):** Assume n is even, so n=2k. Then n²+3 = 4k²+3 = 2(2k²+1)+1 — odd, by definition. ✓
+
+**(⇒) direction — proved via contrapositive (direct would go complex→simple, so switch techniques):** Instead of assuming n²+3 is odd directly, prove the contrapositive "if n is odd, then n²+3 is even." Assume n=2k+1. Then n²+3 = (2k+1)²+3 = 4k²+4k+1+3 = 4k²+4k+4 = 2(2k²+2k+2) — even, by definition (factor out exactly 2, not 4, to match the definition even though 4 also divides evenly — the definition only needs "twice an integer"). This proves the contrapositive, so the original (⇒) direction holds. ✓
 
 Both directions proven → the biconditional is established. ∎
 

@@ -95,6 +95,13 @@ credit_hours: 3
 - Added [[Review/Week 3/Lecture 1/Review]] and [[Review/Week 3/Lecture 2/Review]] — Lecture 5 (proofs) flagged as **highest priority review** this term, directly matching the study guide's stated highest-risk area.
 - Cross-lecture note: proof by contraposition in Lecture 5 is literally the contrapositive-equivalence fact from Weeks 1-2, now applied as an active proof technique rather than just an equivalence check — good continuity to point out if it helps it stick.
 
+### 2026-09-24 — Live Lecture 5 transcript (confirms/extends notes above)
+- Added [[Week 3/Lecture 2/Transcript]] with the raw transcript.
+- **Canvas Test 1 scope confirmed live** (Oct 3): covers up to and including the Monday Sept 28 lecture (Lecture 6), but explicitly NOT the Thursday Oct 1 lecture (Lecture 7) — there's a buffer lecture excluded right before the test. Update study plan to prioritize material through Lecture 6.
+- Confirmed live: √2-irrational proof needs the "reduced fraction" assumption stated explicitly up front — without it there's nothing to contradict at the end. Added this as a warning in [[Week 3/Lecture 2/Notes]].
+- New technique notes added to Notes.md from the live lecture: **WLOG** (skip writing symmetric proof cases twice), **use different letters for independent unknowns** (m=2k, n=2l+1, not both using k — avoids accidentally proving only the "consecutive integers" special case), and the **simple→complex strategy rule** (always easier to reason from n toward n² than backward — this is why several proofs switch to contraposition).
+- For biconditional proofs: confirmed you can (and should) do whichever direction is easier first — no requirement to go ⇒ before ⇐.
+
 ### 2026-09-10 — Live Lecture 1 transcript notes (confirms/extends tutoring notes above)
 - Instructor confirmed **contrapositive is the important one** to internalize (converse/inverse mainly matter as common-mistake traps, e.g. "differentiable ⟹ continuous" vs the false converse "continuous ⟹ differentiable").
 - Instructor's mental model for p→q: think of it as a **contract** — "if you pay $1000, I rent the apartment." Only broken when you pay (p=T) and don't get the apartment (q=F). Matches the "promise" framing already in [[Week 1/Lecture 1/Notes]].
