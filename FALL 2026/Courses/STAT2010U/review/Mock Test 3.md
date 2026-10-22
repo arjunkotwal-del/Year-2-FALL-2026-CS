@@ -1,5 +1,8 @@
 ---
-tags: [review, exam-prep, mock-test]
+tags:
+  - review
+  - exam-prep
+  - mock-test
 based_on: Term Test 1 structure — harder variations, Lectures 1-6 scope only
 ---
 
