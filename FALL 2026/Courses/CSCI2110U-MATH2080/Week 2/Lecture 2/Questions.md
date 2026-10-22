@@ -17,7 +17,7 @@ tags: [practice, week2, lecture2, predicate-logic, quantifiers]
 Translate these statements into English, where $C(x)$ is "x is a comedian" and $F(x)$ is "x is funny," and the domain consists of all people.
 a) $\forall x(C(x) \rightarrow F(x))$
 b) $\forall x(C(x) \wedge F(x))$
-c) $\exists x(C(x) \rightarrow F(x))$
+c) $\exists x(C(x) \rightarrow F(x))$ 
 d) $\exists x(C(x) \wedge F(x))$
 
 ### Q9 — English → predicate logic
