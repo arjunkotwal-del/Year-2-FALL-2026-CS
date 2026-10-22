@@ -4,7 +4,7 @@ crn: 40245
 term: Fall 2026
 credit_hours: 3
 ---
-
+    
 # CSCI2110U / MATH2080 — Discrete Mathematics
 
 ← [[Home]]
