@@ -1,0 +1,272 @@
+<!doctype html><html><head><meta charset="utf-8"><title>CSCI2010U Midterm Cheat Sheet</title><style>
+@page { size: Letter; margin: 0.3in; }
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: #fff; }
+body { font-family: Arial, Helvetica, sans-serif; font-size: 7.0pt; line-height: 1.12; color: #000;
+       -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+.page { width: 7.9in; height: 10.36in; display: flex; flex-direction: column; overflow: hidden; page-break-after: always; }
+.page:last-child { page-break-after: auto; }
+.title { font-size: 8pt; font-weight: bold; text-align: center; background: #1f3864; color: #fff; padding: 1px 0; margin-bottom: 2px; flex: none; }
+.cols { display: flex; gap: 0.1in; flex: 1; min-height: 0; }
+.col { flex: 1 1 0; min-width: 0; overflow: hidden; border-right: 0.5px solid #aaa; padding-right: 0.04in; }
+.col:last-child { border-right: none; padding-right: 0; }
+h2 { font-size: 7.6pt; margin: 3px 0 1px; padding: 0 2px; background: #cfe2f3; border-left: 2px solid #1f3864; }
+h3 { font-size: 7.0pt; margin: 2px 0 0; color: #7f1d1d; text-decoration: underline; }
+p { margin: 1px 0 2px; }
+ul { margin: 1px 0 2px 8px; padding: 0; }
+li { margin: 0 0 1px 0; }
+pre { font-family: Consolas, "Courier New", monospace; font-size: 6.3pt; line-height: 1.1; margin: 1px 0 2px; padding: 1px 2px;
+      background: #f2f2f2; border: 0.4px solid #bbb; white-space: pre-wrap; word-break: break-word; }
+code { font-family: Consolas, "Courier New", monospace; font-size: 6.6pt; background: #eee; padding: 0 1px; }
+table { border-collapse: collapse; margin: 1px 0 2px; width: 100%; }
+td, th { border: 0.4px solid #666; padding: 0 2px; font-size: 6.7pt; text-align: center; }
+th { background: #d9d9d9; }
+</style></head><body><div class="page"><div class="title">CSCI2010U MIDTERM - SIDE A: CODE YOU CAN WRITE, TRACES, RECURSION, SEARCHING</div><div class="cols"><div class="col"><h2>HOW TO ANSWER</h2><ul><li><b>Print / return?</b> Make a table: one row per pass or call, one column per variable. Run it line by line.</li><li><b>Fill a blank:</b> copy the matching template; check start, stop test, step, names.</li><li><b>Write a method:</b> 1) what to return, 2) variable (count / sum / min), 3) loop or recursion, 4) return AFTER the loop. Test it on the example.</li></ul><h2>JAVA ESSENTIALS</h2><ul><li>Array: index from <b>0</b>; <code>a.length</code> (no brackets); last = <code>a[a.length-1]</code>; <code>a[a.length]</code> crashes. <code>int[] a = new int[5];</code> (all 0) or <code>{5,2,9}</code>. Size is fixed.</li><li>String: <code>s.length()</code>, <code>s.charAt(i)</code>, <code>s.substring(1)</code> ("hello" gives "ello"), <code>s.substring(1,3)</code> ("el", end not included), <code>s1.compareTo(s2)</code> (negative = s1 first). Case matters.</li><li><code>n%10</code> = last digit, <code>n/10</code> drops it (5072: 2 and 507). <code>==</code> compares, <code>=</code> assigns. Defaults: int 0, boolean false, object null.</li><li>Primitives are passed as a COPY. Arrays and objects pass a reference copy, so a method changes the SAME array (no return needed).</li><li><b>Compile error</b> (javac refuses): missing ;, wrong type, private field used outside its class, <code>new</code> on an abstract class, parent object put in a child variable, abstract method not written, <code>return null</code> in an int method.</li><li><b>Runtime error</b> (crashes while running): ArrayIndexOutOfBounds, StackOverflowError.</li><li><code>i % k == 0</code> means divisible by k. Integer division truncates: 7 / 2 = 3, 7 % 2 = 1.</li><li>A <code>static</code> method cannot use instance fields or <code>this</code>; an object needs <code>new</code> before you use it.</li><li>Strings are not arrays: <code>s[i]</code> does not compile, use <code>s.charAt(i)</code>. <code>+=</code> works on Strings, not arrays. An int method returns a number (or throws), never null. Out of range: arrays throw ArrayIndexOutOfBounds, the L11 list throws IndexOutOfBounds.</li><li><code>javac F.java</code> makes F.class; <code>java F</code> runs <code>public static void main(String[] args)</code>.</li></ul><h2>COUNT, MIN, SUM, MULTIPLES (Lab 1)</h2><pre>int count = 0;                // before the loop
+for (int i = 0; i &lt; a.length; i++)
+  if (a[i] &gt;= target) count++;  // &gt;= : equal counts
+return count;                 // after the loop
+countAtLeast({25,10,40,25}, 25):
+ i=0 25&gt;=25 yes c=1 | i=1 10&gt;=25 no c=1
+ i=2 40&gt;=25 yes c=2 | i=3 25&gt;=25 yes c=3 -&gt; 3
+count &gt; 4 in {5,2,9,2}: yes,no,yes,no -&gt; 2
+int min = a[0];               // not 0
+for (int i = 1; i &lt; a.length; i++)
+  if (a[i] &lt; min) min = a[i];
+int sum = 0;
+for (int i = 0; i &lt; a.length; i++) sum += a[i];
+for (int i=start; i&lt;=end; i++)    // multiples
+  if (i % mult == 0) System.out.println(i);</pre><h2>REVERSE</h2><pre>void reverseArray(int[] a){       // in place
+  int l = 0, r = a.length-1;
+  while (l &lt; r){ int t=a[l]; a[l]=a[r]; a[r]=t;
+    l++; r--; } }        // {1,2,3,4} -&gt; 4 3 2 1
+String reverse(String s){ String out = "";
+  for (int i=s.length()-1; i&gt;=0; i--)
+    out += s.charAt(i);
+  return out; }          // "abc" -&gt; "cba"</pre><h2>ORDER THE STEPS</h2><pre>insert val at idx: check range (return)
+  -&gt; i = a.length-1 -&gt; while i&gt;idx: a[i]=a[i-1], i--
+  -&gt; a[idx] = val
+binary search: low&gt;high return NOT_FOUND -&gt; mid
+  -&gt; equal? return mid -&gt; else recurse on a half
+TOH: if n==0 return -&gt; TOH(n-1,start,temp,goal)
+  -&gt; print start --&gt; goal -&gt; TOH(n-1,temp,goal,start)
+bubble: i from last down to 1 -&gt; j from 0 to i-1
+  -&gt; if A[j+1] &lt; A[j] swap
+delete: check range -&gt; i = idx+1
+  -&gt; while i&lt;length: a[i-1]=a[i] -&gt; last = GAP</pre></div><div class="col"><h2>BUBBLE SORT (L1, L2)</h2><pre>for (int i = A.length-1; i &gt; 0; i--)  // i fixed
+  for (int j = 0; j &lt; i; j++)         // j moves
+    if (A[j+1] &lt; A[j]) swap(A, j, j+1);
+swap: int t=A[j]; A[j]=A[k]; A[k]=t;  // needs temp
+descending: use A[j+1] &gt; A[j]
+{4,2,3}: i=2: j=0 2&lt;4 swap 2 4 3
+              j=1 3&lt;4 swap 2 3 4
+         i=1: j=0 3&lt;2? no  2 3 4   (2 passes)
+{3,1,2}: i=2: 1 3 2 | 1 2 3 ; i=1: 2&lt;1? no
+{5,2,4,1}: 2541 | 2451 | 2415 (5 locked)
+  pass2: 2415 | 2145 | pass3: 1245
+{8,1,6,4,9}: i=4: j0 swap 1 8 6 4 9, j1 swap
+  1 6 8 4 9, j2 swap 1 6 4 8 9, j3 9&lt;8? no
+  i=3: j0 no, j1 swap 1 4 6 8 9, j2 no
+  i=2: no, no | i=1: no  -&gt; 1 4 6 8 9
+  (4+3+2+1 = 10 compares)</pre><table><tr><th>n</th><th>i starts</th><th>passes</th><th>pass1 compares</th><th>j max</th></tr><tr><td>4</td><td>3</td><td>3</td><td>3</td><td>2</td></tr><tr><td>5</td><td>4</td><td>4</td><td>4</td><td>3</td></tr><tr><td>6</td><td>5</td><td>5</td><td>5</td><td>4</td></tr></table><p>Total compares = n(n-1)/2. Worst case O(n^2).</p><h2>SEARCHING (L6, L10)</h2><pre>linear: for (int i=0; i&lt;A.length; i++)
+          if (A[i]==val) return i;
+        return -1;      // best O(1), worst O(n)
+binary (array SORTED): bs(a,val,low,high)
+  if (low &gt; high) return NOT_FOUND;
+  int mid = (low+high)/2;
+  if (val == a[mid]) return mid;
+  else if (val &lt; a[mid])
+    return bs(a,val,low,mid-1);
+  else return bs(a,val,mid+1,high);
+start: bs(a,val,0,a.length-1)    O(log n)
+a={1,3,5,7,9,11,13}
+find 11: l0 h6 m3=7, go right: l4
+         l4 h6 m5=11 found, return 5
+find 3 : l0 h6 m3=7, go left: h2
+         l0 h2 m1=3 found, return 1
+find 5 : m3=7 h2 | m1=3 l2 | l2 h2 m2=5 -&gt; 2
+find 4 : m3=7 h2 | m1=3 l2 | m2=5 h1 | low&gt;high
+         NOT_FOUND</pre><h2>ARRAY INSERT / DELETE (L10)</h2><pre>insert(a,idx,val):
+  for (int i=a.length-1; i&gt;idx; i--)
+    a[i] = a[i-1];     // shift RIGHT from the end
+  a[idx] = val;        // last element falls off
+{4,6,8,10} idx=1 val=50:
+ 4 6 8 8 | 4 6 6 8 | 4 50 6 8   (2 shifts)
+delete(a,idx):
+  for (int i=idx+1; i&lt;a.length; i++)
+    a[i-1] = a[i];     // shift LEFT
+  a[a.length-1] = GAP;
+{5,6,7,8} idx=1:
+ 5 7 7 8 | 5 7 8 8 | 5 7 8 GAP  (2 shifts)
+worst idx=0 O(n); best idx=last O(1); a[i] O(1)</pre><h2>PERFECT SQUARE (L6, L9)</h2><pre>v0: while (i &lt;= n) { if (i*i==n) Yes; i++ }  O(n)
+v1: while (i*i &lt;= n)                        O(sqrt n)
+v2: double i till i*i&gt;n, then binary search O(log n)
+n=10: v0 10 loops No | v1 i=1,2,3 (1,4,9), 16&gt;10
+      stop = 3 loops, No
+n=20: v0 20 loops    | v1 i=1..4 (16), 25&gt;20
+      stop = 4 loops, No
+n=16: v1 i=1..4, 16==16 Yes (4 loops)</pre><h2>MORE WHOLE METHODS (Canvas style)</h2><pre>boolean isSorted(int[] a){
+  for (int i = 1; i &lt; a.length; i++)
+    if (a[i-1] &gt; a[i]) return false;   // not &gt;=
+  return true; }     // empty / 1 element = true
+int countDivisible(int lo, int hi, int k){
+  int count = 0;
+  for (int i = lo; i &lt;= hi; i++)
+    if (i % k == 0) count++;
+  return count; }    // (1, 11, 3) = 3
+class Roster { private String[] names; private int size;
+  public Roster(int capacity){
+    names = new String[capacity]; size = 0; }
+  public void add(String name){
+    if (size == names.length)
+      throw new IndexOutOfBoundsException("full");
+    names[size] = name; size++; }
+  public String get(int index){
+    if (index &lt; 0 || index &gt;= size)
+      throw new IndexOutOfBoundsException("bad");
+    return names[index]; }
+  public int size(){ return size; } }</pre></div><div class="col"><h2>RECURSION (L7, Lab 4)</h2><ul><li>Needs a <b>base case</b> (smallest problem, returns) and a <b>recursive case</b> (calls itself on a SMALLER problem). No base case = StackOverflowError.</li><li>Trace: go DOWN (calls wait), then back UP (each returns using the value from below). <code>sumTo(2)</code> means the SUM 1+2 = 3, not the number 2. Countdown n..0 = n+1 calls.</li><li>Print BEFORE the call = going down (3,2,1). Print AFTER = coming up (1,2,3).</li></ul><pre>sumTo(n): if (n==0) return 0;
+          return n + sumTo(n-1);
+ (0)=0 (1)=1+0=1 (2)=2+1=3 (3)=3+3=6  4 calls
+twice(n): if (n==0) return 0;
+          return 2 + twice(n-1);
+ (1)=2 (2)=4 (3)=6   (= 2n)
+down(n): if(n==0) return;
+  print n; down(n-1);        down(3): 3 2 1
+up(n): if(n==0) return;
+  up(n-1); print n;          up(3): 1 2 3
+test(n): if(n==0) return; print "A"+n;
+  test(n-1); print "B"+n;
+ test(2): A2 A1 B1 B2   test(3): A3 A2 A1 B1 B2 B3
+sumDigits(n): if (n==0) return 0;
+  return n%10 + sumDigits(n/10);
+ (72) = 2 + (7 + 0) = 9
+ iter: while (n&gt;0) { s += n%10; n /= 10; }
+countDigits(n): if (n&lt;10) return 1;
+  return 1 + countDigits(n/10);
+ (472) = 1+(1+1) = 3     each call adds 1, not n
+power(b,e): if (e==0) return 1;
+  return b * power(b, e-1);
+rev(s): if (s.length()&lt;=1) return s;
+  return rev(s.substring(1)) + s.charAt(0);
+ rev("abc") = rev("bc")+a = (rev("c")+b)+a = "cba"
+isPal(t): if (t.length()&lt;=1) return true;
+  if (t.charAt(0) != t.charAt(t.length()-1))
+    return false;
+  return isPal(t.substring(1, t.length()-1));
+ "abba": a=a, "bb": b=b, "" true
+ "abca": a=a, "bc": b!=c  false (2 calls)
+ iter: i=0, j=t.length()-1;
+  while (i&lt;j) { if (t.charAt(i)!=t.charAt(j))
+    return false; i++; j--; }  return true;
+mystery(n): print n; mystery(n-1); print n
+ mystery(3): 3 2 1 then 1 2 3 (base prints none)
+f(n): if (n&lt;=1) return 1; return f(n-1)+f(n-2);
+ f(2)=2 f(3)=3 f(4)=5 ; calls for f(4) = 9
+ isPal("level"): l=l, "eve": e=e, "v" true (3 calls)
+TOH(n,start,goal,temp): if (n==0) return;
+  TOH(n-1,start,temp,goal);
+  print start --&gt; goal;
+  TOH(n-1,temp,goal,start);   call TOH(n,"A","C","B")
+ n=2: A-B A-C B-C
+ n=3 (7): A-C A-B C-B A-C B-A B-C A-C
+ moves 2^n - 1</pre><h2>RAPID-FIRE ANSWERS (Java basics)</h2><pre>Arrays.toString(new int[3])        -&gt; [0, 0, 0]
+"Java".length()                    -&gt; 4
+"Hello".charAt(1)                  -&gt; 'e'
+int[] a={4,8,15}; a[3]             -&gt; ArrayIndexOutOfBounds
+int[] a = new int[3];              OK
+int a[3];  int[] a = new int[];    do NOT compile
+String s="hi"; char c = s[0];      does NOT compile
+static int f(){ return null; }     does NOT compile
+int x = null;                      does NOT compile
+7 / 2 + " " + 7 % 2                -&gt; 3 1
+public Student(String name, int id){
+  this.name = name; this.id = id; }</pre><h2>LOOPS TO BIG-O</h2><pre>return a[5];                           O(1)
+for (i=0;i&lt;n;i++) sum+=a[i];           O(n)
+for (...n) x++;  for (...n) y++;       O(n) two loops in a row
+for (i=0;i&lt;n;i++) for (j=0;j&lt;n;j++)    O(n^2)
+for (i=0;i&lt;n;i++) for (j=0;j&lt;i;j++)    O(n^2) (n(n-1)/2)
+while (n &gt; 1) { n = n/2; }             O(log n)
+T(n)=6n^2+30n+11                       O(n^2)</pre></div></div></div><div class="page"><div class="title">CSCI2010U MIDTERM - SIDE B: OOP, INTERFACES, BIG-O, LISTS, EXPLAIN WHY</div><div class="cols"><div class="col"><h2>INHERITANCE (L3, L4, Lab 2)</h2><ul><li><code>extends</code>. Test "is a": Manager IS AN Employee, never the reverse. A subclass can add and <b>override</b>.</li><li><code>super(...)</code> must be the FIRST line of the constructor (runs the parent constructor).</li><li>Parent <code>private</code> fields are not visible in the child: use the getter.</li><li>In an override, <code>super.m()</code> = parent version. Plain <code>m()</code> = itself, forever = <b>StackOverflowError</b> (runtime).</li></ul><pre>class Pet { private String name;
+  public Pet(String name){ this.name = name; }
+  public String getName(){ return name; }
+  public String sound(){ return "..."; } }
+class Dog extends Pet { private int tricks;
+  public Dog(String name, int tricks){
+    super(name);             // first line
+    this.tricks = tricks; }
+  @Override public String sound(){ return "Woof"; }
+  public String describe(){
+    return getName() + " knows " + tricks; } }
+class Cat extends Pet { private int lives;
+  public Cat(String name, int lives){
+    super(name); this.lives = lives; }
+  @Override public String sound(){ return "Meow"; }
+  public String describe(){
+    return getName() + " has " + lives; } }
+class LoudDog extends Dog {
+  public LoudDog(String n, int t){ super(n, t); }
+  @Override public String sound(){
+    return super.sound() + "!"; } }
+Pet[] p = { new Pet("A"), new Dog("B",1),
+            new LoudDog("C",2) };
+for (Pet x : p) System.out.println(x.sound());
+// prints:  ...   Woof   Woof!
+new Dog("Rex",3).describe()  gives  Rex knows 3</pre><pre>class Manager extends Employee {
+  private double bonus;
+  public Manager(double salary, String name){
+    super(salary, name); this.bonus = 0; }
+  @Override public double getSalary(){
+    return super.getSalary() + bonus; } }
+// salary 70000, bonus 500 gives 70500
+LimitedCounter(String name, int limit){
+  super(name); this.limit = limit; }
+@Override public void increment(){
+  if (getCount() &lt; limit) super.increment(); }
+for (Counter c : counters) c.increment();</pre><p>Limit 2: three increments give 2, reset 0, one more gives 1.</p><h2>POLYMORPHISM (L4)</h2><ul><li>A parent variable can hold a child object. The version that RUNS is the object's own class (dynamic dispatch).</li><li>Read right to left with "is a". A parent variable cannot call child-only methods.</li><li>Making an object: declare a REFERENCE (an address), create the object with <code>new</code> on the <b>HEAP</b>, link them.</li></ul><table><tr><th>code</th><th>result</th></tr><tr><td><code>Pet p = new Dog("B",1);</code></td><td>OK (Dog is a Pet)</td></tr><tr><td><code>p.sound()</code></td><td>runs Dog's: Woof</td></tr><tr><td><code>p.describe()</code></td><td>COMPILE error (Pet has none)</td></tr><tr><td><code>Dog d = new Pet("A");</code></td><td>COMPILE error</td></tr><tr><td><code>Pet[] arr</code></td><td>holds Pet, Dog, Cat</td></tr><tr><td><code>void feed(Pet x)</code></td><td>accepts any Pet child</td></tr></table><h2>COMPILE OR RUNTIME?</h2><table><tr><th>situation</th><th>error</th></tr><tr><td>override calls itself (no <code>super.</code>)</td><td>RUNTIME StackOverflowError</td></tr><tr><td><code>a[4]</code> on length 4</td><td>RUNTIME ArrayIndexOutOfBounds</td></tr><tr><td>list <code>get</code> with a bad index</td><td>RUNTIME IndexOutOfBounds</td></tr><tr><td><code>new Shape()</code> (abstract)</td><td>COMPILE</td></tr><tr><td>concrete class missing an abstract method</td><td>COMPILE</td></tr><tr><td>child reads parent's private field</td><td>COMPILE</td></tr><tr><td><code>Dog d = new Pet("A");</code></td><td>COMPILE</td></tr><tr><td>child-only method on a parent variable</td><td>COMPILE</td></tr><tr><td><code>return null</code> in an int method</td><td>COMPILE</td></tr></table></div><div class="col"><h2>ABSTRACT CLASS (L5, Lab 3)</h2><pre>abstract class Shape {
+  public abstract double area(); }   // no body
+class Square extends Shape { private double s;
+  public Square(double s){ this.s = s; }
+  @Override public double area(){ return s*s; } }
+new Shape()                        ERROR (abstract)
+Shape b = new Square(2);           OK
+class Triangle extends Shape { }   ERROR: no area()
+ fix: write area() OR "abstract class Triangle"</pre><pre>abstract class Person { private String name;
+  public Person(String name){ this.name = name; }
+  public String getName(){ return name; }
+  public abstract String getPosition(); }
+class Employee extends Person { private double salary;
+  public Employee(double salary, String name){
+    super(name); this.salary = salary; }
+  @Override public String getPosition(){
+    return "Employee " + getName() + " on salary $" + salary; } }
+class Intern extends Person {
+  public Intern(String name){ super(name); }
+  @Override public String getPosition(){
+    return "Intern unpaid"; } }
+Person[] staff = { new Employee(20000,"Peter"),
+                   new Intern("Tom") };
+for (Person p : staff) println(p.getPosition());
+ // Employee Peter on salary $20000.0  /  Intern unpaid</pre><ul><li><b>Cannot instantiate</b> an abstract class, even with a constructor. A constructor can NOT be abstract. Mixes concrete + abstract methods; can have static methods.</li><li>A child must write ALL abstract methods or be abstract itself. Non-abstract = <b>concrete</b>.</li><li>Use it when siblings share structure: Person (abstract getPosition) with Employee and Intern, each writing its own.</li></ul><h2>INTERFACE AND compareTo</h2><pre>class Student implements Comparable&lt;Student&gt; {
+  private String name;
+  public Student(String name){ this.name = name; }
+  @Override public int compareTo(Student o){
+    return name.compareTo(o.name); } }   // Strings
+class Book implements Comparable&lt;Book&gt; {
+  private int pages;
+  @Override public int compareTo(Book o){
+    return Integer.compare(pages, o.pages); } } // numbers
+class Employee extends Person
+    implements Comparable&lt;Employee&gt; { ... }
+Arrays.sort(arr); // Maya,Alex,Priya gives Alex,Maya,Priya</pre><ul><li>Returns <b>negative</b> if this comes first, <b>0</b> if equal, <b>positive</b> if after. <code>Arrays.sort</code> uses it; order does NOT come from insertion order.</li><li>Interface = a list of promises (a ROLE); all methods abstract. <code>implements</code> MANY, <code>extends</code> only ONE (diamond problem: two parents, which method?).</li><li>Generics <code>&lt;T&gt;</code> restrict the type: <code>ArrayList&lt;String&gt;</code> holds Strings only.</li></ul><h2>ACCESS AND PACKAGES</h2><table><tr><th>access</th><th>public</th><th>protected</th><th>none</th><th>private</th></tr><tr><td>same class</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td></tr><tr><td>same pkg, subclass</td><td>Y</td><td>Y</td><td>Y</td><td>N</td></tr><tr><td>same pkg, other</td><td>Y</td><td>Y</td><td>Y</td><td>N</td></tr><tr><td>diff pkg, subclass</td><td>Y</td><td>Y</td><td>N</td><td>N</td></tr><tr><td>diff pkg, other</td><td>Y</td><td>N</td><td>N</td><td>N</td></tr></table><p>Package: first line <code>package x;</code>, class names unique per package, no statement = default package, <code>java.lang</code> (System, Math, String) auto-imported, <code>java.util</code> has Arrays and Random. Course uses mostly public and private.</p><h2>EXPLAIN WHY</h2><ul><li><b>Equal to target counts:</b> "at least" means &gt;=.</li><li><b>super(name) vs super.increment():</b> the first sets the parent's private state (first line only); the second calls the parent version of an overridden method.</li><li><b>new Person() fails:</b> abstract, cannot be instantiated, even with a constructor.</li><li><b>Concrete class writes every abstract method:</b> otherwise an object would have a method with no body.</li><li><b>Comparable and Arrays.sort:</b> sort calls compareTo to decide the order. implements = many roles; extends = one parent.</li><li><b>Loop stop vs base case:</b> both are the condition where work ends, and every step moves toward it.</li><li><b>Palindrome mismatch:</b> one differing outer pair already proves it is not one, so return false at once.</li></ul></div><div class="col"><h2>ALGORITHMS AND BIG-O (L6 to L9)</h2><ul><li><b>Algorithm</b> = finite, deterministic (same input, same output), effective, implementable in any language. Pseudocode is for humans. <b>Time</b> = count steps; <b>space</b> = memory; time matters most.</li><li><b>T(n)</b> = steps for input size n. Each line costs a constant; <code>end</code> and comments not counted. A loop header runs ONE MORE time than its body.</li><li>Linear search: best (first spot) O(1), worst (missing) <code>an+b</code> = O(n). We use <b>worst case</b>: an upper-bound guarantee that happens often. Average case not covered.</li><li>Big-O is a notation. Worst case is a type of input. Big-O can describe either.</li><li>Ladder, slow to fast: <b>1, log n, sqrt n, n, n log n, n^2, n^3, 2^n, n!</b></li><li><b>Definition:</b> f(n) = O(g(n)) if there are positive c and n0 with 0 &lt;= f(n) &lt;= c*g(n) for all n &gt;= n0. g is an UPPER bound; O(g) is a SET.</li><li><b>Drop constants and small terms:</b> 4n^2+20n+9 = O(n^2); 3+5n^2+7n^3 &lt;= 15n^3 so O(n^3).</li><li><b>True/False rule:</b> simplify, then LEFT = O(RIGHT) is true if left is the same or EARLIER on the ladder.</li></ul><table><tr><th>claim</th><th>answer</th></tr><tr><td>5n+20 = O(n)</td><td>T</td></tr><tr><td>n^2 = O(n)</td><td>F</td></tr><tr><td>n = O(n^3)</td><td>T</td></tr><tr><td>2^n = O(n^3)</td><td>F</td></tr><tr><td>3n+4 = O(n^2)</td><td>T</td></tr><tr><td>n log n = O(n^2)</td><td>T</td></tr><tr><td>3^n = O(n^3)</td><td>F</td></tr><tr><td>n^3 = O(3^n)</td><td>T</td></tr><tr><td>3+5n+18n^2 = O(n) / O(n^2)</td><td>F / T</td></tr></table><h2>LISTS (L11)</h2><ul><li><b>Ordered</b> = each element has a position (not sorted by value). Head = start, tail = end.</li><li>Interface says WHAT (add, addLast, get, isEmpty, size, toString); the implementation says HOW (ArrList uses an array).</li><li><code>size</code> = stored now, <code>maxSize</code> = capacity. A bad index throws <b>IndexOutOfBoundsException</b> (unchecked, runtime). The slide checks <code>index &gt; size</code>; the correct test is <code>index &gt;= size</code>.</li><li>add at head = like array INSERT (shift right), O(n). addLast on a full list = shift left, O(n).</li></ul><pre>ArrList(){ this(DEFAULT_SIZE); }      // DEFAULT 10
+ArrList(int capacity){ maxSize = capacity;
+  size = 0; listArray = (T[]) new Object[capacity]; }
+get(i): if (i&lt;0 || i&gt;=size)
+  throw new IndexOutOfBoundsException("..");
+  return listArray[i];
+add(e,i) shift RIGHT (from the end):
+  for (int k = size&lt;maxSize ? size : maxSize-1;
+       k &gt; i; k--) listArray[k] = listArray[k-1];
+  listArray[i] = e;  if (size&lt;maxSize) size++;
+addLast(e) when FULL, shift LEFT:
+  for (int k = 1; k &lt; listArray.length; k++)
+    listArray[k-1] = listArray[k];</pre><h2>QUICK FACTS (past quiz)</h2><ul><li>Default int = <b>0</b>. <code>"Hello".length()</code> = <b>5</b>. <code>int[] arr = new int[5];</code> Last = <code>arr[arr.length-1]</code>.</li><li>Out of bounds = <b>ArrayIndexOutOfBoundsException</b>. Arrays fixed size. Java ArrayList remove last = O(1).</li><li>Constructor: <code>public Person(String name, int age){ this.name = name; this.age = age; }</code></li><li>Terms: class = blueprint, object = instance; object has state (fields), behaviour (methods), identity. Encapsulation = private fields + public methods. Nouns = classes, verbs = methods.</li></ul></div></div></div></body></html>

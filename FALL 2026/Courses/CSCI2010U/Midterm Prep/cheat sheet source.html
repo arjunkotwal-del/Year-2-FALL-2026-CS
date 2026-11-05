@@ -1,0 +1,144 @@
+<!doctype html><html><head><meta charset="utf-8"><title>CSCI2010U Midterm Cheat Sheet</title><style>
+@page { size: Letter; margin: 0.3in; }
+* { box-sizing: border-box; }
+body { font-family: Arial, Helvetica, sans-serif; font-size: 7.0pt; line-height: 1.13; color: #000; margin: 0;
+       -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+.page { column-count: 3; column-gap: 0.11in; column-rule: 0.5px solid #999; column-fill: auto; height: 10.36in; overflow: hidden; page-break-after: always; }
+.page:last-child { page-break-after: auto; }
+.title { font-size: 8pt; font-weight: bold; text-align: center; background: #1f3864; color: #fff; padding: 1px 0; margin-bottom: 2px; }
+h2 { font-size: 7.7pt; margin: 3px 0 1px; padding: 0 2px; background: #cfe2f3; border-left: 2px solid #1f3864; break-after: avoid; }
+h3 { font-size: 7.0pt; margin: 2px 0 0; color: #7f1d1d; text-decoration: underline; break-after: avoid; }
+p { margin: 1px 0; }
+ul { margin: 1px 0 1px 8px; padding: 0; }
+li { margin: 0 0 1px 0; }
+pre { font-family: Consolas, "Courier New", monospace; font-size: 6.4pt; line-height: 1.1; margin: 1px 0 2px; padding: 1px 2px;
+      background: #f2f2f2; border: 0.4px solid #bbb; white-space: pre-wrap; word-break: break-word; break-inside: avoid; }
+code { font-family: Consolas, "Courier New", monospace; font-size: 6.6pt; background: #eee; padding: 0 1px; }
+table { border-collapse: collapse; margin: 1px 0 2px; width: 100%; break-inside: avoid; }
+td, th { border: 0.4px solid #666; padding: 0 2px; font-size: 6.7pt; text-align: center; }
+th { background: #d9d9d9; }
+</style></head><body><div class="page"><div style="column-span:all"><div class="title">CSCI2010U MIDTERM - SIDE A: HOW TO ANSWER, TRACE RECIPES, JAVA BASICS, CODE TEMPLATES, BIG-O</div></div><h2>A1. HOW TO ANSWER EVERY QUESTION TYPE (read this first)</h2><ul><li><b>"What does it print / return?"</b> Do NOT guess. Draw a table: one row per loop pass or per call, one column per variable. Run the code line by line. Print order = order the println lines run.</li><li><b>"Fill in the blank (code)"</b> Look at the lines around the blank, then copy the matching template from this sheet. Check 4 things: start value, stop test, step (i++), variable names.</li><li><b>"Complete the method"</b> 1) say what it must return, 2) variable to hold the answer (count / sum / best), 3) loop or recursion, 4) return AFTER the loop. Test your code on the example in the question by hand.</li><li><b>"Big-O / running time"</b> Use the rules in A5. Then drop constants and small terms.</li><li><b>"Explain / True-False / why"</b> Use the one-line answers in B8.</li></ul><h2>A2. TRACE RECIPES</h2><h3>Loop trace (arrays)</h3><p>Columns: <code>i | a[i] | test true? | variable after</code>. Start i=0. Last pass is i = length-1. Loop ends when test is FALSE (i = length). Use <code>i &lt; a.length</code> (NOT &lt;=, that crashes: ArrayIndexOutOfBoundsException).</p><pre>count elements &gt; 4 in {5,2,9,2}
+i=0 5&gt;4 yes count=1
+i=1 2&gt;4 no  count=1
+i=2 9&gt;4 yes count=2
+i=3 2&gt;4 no  count=2   -&gt; return 2</pre><h3>Recursion trace (the #1 exam topic)</h3><ul><li>Write the first call with its numbers. Each deeper call goes one indent right. Mark the BASE case when it returns.</li><li>Then go back UP: each call finishes with the value that came back. A paused call resumes on the line AFTER its recursive call.</li><li><b>Print BEFORE the recursive call = prints going DOWN (3,2,1). Print AFTER = prints coming UP (1,2,3).</b></li><li>Number of calls for a countdown from n to 0 = n+1.</li></ul><pre>sumTo(3)            sumTo(n): if n==0 return 0
+ 3 + sumTo(2)                 return n + sumTo(n-1)
+     2 + sumTo(1)
+         1 + sumTo(0)
+             sumTo(0) = 0   &lt;- BASE
+         = 1+0 = 1
+     = 2+1 = 3
+ = 3+3 = 6
+
+mystery(3): if n==0 return; print n; mystery(n-1); print n
+prints 3 2 1 [base n=0, prints nothing] 1 2 3</pre><h2>A3. JAVA BASICS FOR NON-CODERS</h2><ul><li>Array: boxes numbered from <b>0</b>. <code>int[] a={5,2,9,2};</code> a[0]=5, a.length=4 (no brackets), last index = a.length-1 = 3. Asking a[4] crashes.</li><li>String: <code>s.length()</code> (with brackets), <code>s.charAt(i)</code> = letter at i (starts 0), <code>s.substring(1)</code> = from index 1 to end ("hello"→"ello"), <code>s.substring(1,3)</code> = index 1 up to but NOT including 3 ("el"). <code>s1.compareTo(s2)</code>: negative if s1 comes before s2, 0 equal, positive after. Case matters ("Level" differs from "level").</li><li><code>n % 10</code> = last digit (5072 % 10 = 2). <code>n / 10</code> = drops last digit (5072 / 10 = 507, whole-number division).</li><li><code>count++</code> = add 1. <code>i--</code> = subtract 1. <code>==</code> compares, <code>=</code> assigns. <code>&amp;&amp;</code> and, <code>||</code> or, <code>!=</code> not equal. <code>countdown(--i)</code> subtracts 1 FIRST then passes it.</li><li><code>javac Foo.java</code> = compile source to Foo.class (bytecode). <code>java Foo</code> = run main in Foo.class (JVM). Compile after every edit. <code>public static void main(String[] args)</code>: public = JVM can call it, static = no object needed, void = returns nothing, args = command-line words.</li><li><code>import java.util.Arrays;</code> then <code>Arrays.toString(a)</code> prints [4, 3, 5]. Printing an array directly gives garbage like [I@251a69d7. <code>Arrays.sort(a)</code> sorts. java.lang (System, Math, String) is auto-imported.</li><li>Passing to methods: primitives (int, double) = a COPY. Arrays/objects = a copy of the REFERENCE, so the method changes the SAME array. That is why bubble sort needs no return value.</li><li>Compile error (javac says no): missing ;, wrong type, method does not exist, <code>new</code> on an abstract class, private field used outside its class, abstract method not implemented, <code>Manager m = new Employee()</code>. Runtime error (crashes while running): ArrayIndexOutOfBoundsException, IndexOutOfBoundsException (list), StackOverflowError (recursion with no base case).</li><li>Loop forms: <code>for (init; test; step) {body}</code> runs init once, then test, body, step, test... until test is false. Enhanced: <code>for (Employee e : arr)</code> = for each element.</li></ul><h2>A4. CODE TEMPLATES (copy the matching one)</h2><h3>Counting loop (Lab 1)</h3><pre>int count = 0;                  // before loop
+for (int i = 0; i &lt; a.length; i++) {
+  if (a[i] &gt;= target) count++;  // &gt;= : equal counts
+}
+return count;                   // after loop</pre><h3>Max / sum</h3><pre>int best = a[0];               // not 0
+for (int i = 1; i &lt; a.length; i++)
+  if (a[i] &gt; best) best = a[i];
+int sum = 0;
+for (int i = 0; i &lt; a.length; i++) sum += a[i];</pre><h3>Swap needs a temp (else value lost)</h3><pre>static void swap(int[] A, int j, int k){
+  int temp = A[j];
+  A[j] = A[k];
+  A[k] = temp; }</pre><h3>Bubble sort (L1/L2)</h3><pre>for (int i = A.length-1; i &gt; 0; i--) // i fixed
+  for (int j = 0; j &lt; i; j++)        // j moves
+    if (A[j+1] &lt; A[j]) swap(A, j, j+1);
+// n-1 passes; compares: n-1, n-2, ..., 1
+// after pass k the last k are locked
+// descending: use A[j+1] &gt; A[j]
+// {5,2,4,1}: 2541 | 2451 | 2415 (5 locked)
+//  pass2: 2415 | 2145 (4 locked)  pass3: 1245</pre><h3>Linear search (L6)</h3><pre>for (int i = 0; i &lt; A.length; i++)
+  if (A[i] == val) return i;
+return -1;       // best O(1), worst O(n)</pre><h3>Binary search (L10) - array MUST be sorted</h3><pre>bs(a, val, low, high):
+  if (low &gt; high) return NOT_FOUND;
+  int mid = (low + high)/2;
+  if (val == a[mid]) return mid;
+  else if (val &lt; a[mid])
+    return bs(a, val, low, mid-1);
+  else
+    return bs(a, val, mid+1, high);
+start: bs(a, val, 0, a.length-1)  O(log2 n)
+find 5 in {1,3,5,7,9,11,13}:
+ l0 h6 m3=7 | l0 h2 m1=3 | l2 h2 m2=5 found</pre><h3>Array insert / delete (L10), O(n) worst, O(1) best</h3><pre>insert(a, idx, val):
+  for (int i=a.length-1; i&gt;idx; i--)
+    a[i] = a[i-1];     // shift RIGHT, from the end
+  a[idx] = val;
+delete(a, idx):
+  for (int i=idx+1; i&lt;a.length; i++)
+    a[i-1] = a[i];     // shift LEFT
+  a[a.length-1] = GAP;
+worst idx=0 O(n), best idx=last O(1)</pre><h3>Recursion templates (Lab 4 / L7)</h3><pre>sumDigits iter: int s=0;
+  while (n&gt;0) { s += n%10; n /= 10; }
+  return s;
+sumDigits rec: if (n==0) return 0;
+  return n%10 + sumDigits(n/10);
+countDigits: if (n&lt;10) return 1;
+  return 1 + countDigits(n/10);
+sumTo: if (n==0) return 0;
+  return n + sumTo(n-1);
+power: if (exp==0) return 1;
+  return base * power(base, exp-1);
+palindrome iter: int i=0, j=t.length()-1;
+  while (i&lt;j) {
+    if (t.charAt(i) != t.charAt(j)) return false;
+    i++; j--; }
+  return true;
+palindrome rec: if (t.length()&lt;=1) return true;
+  if (t.charAt(0) != t.charAt(t.length()-1))
+    return false;
+  return isPal(t.substring(1, t.length()-1));
+countdown(i): print i; if (i&lt;=0) return;
+  else countdown(i-1);     // 3 2 1 0
+printUp(i): if (i&lt;=0) return;
+  printUp(i-1); print i;   // 1 2 3</pre><h3>Towers of Hanoi (L7)</h3><pre>TOH(n, start, goal, temp):
+  if (n == 0) return;            // base
+  TOH(n-1, start, temp, goal);   // n-1 to temp
+  print start + " --&gt; " + goal;  // move 1 disc
+  TOH(n-1, temp, goal, start);   // n-1 onto goal
+call: TOH(n, "A", "C", "B")
+n=2: A-B, A-C, B-C
+n=3 (7 moves): A-C, A-B, C-B, A-C,
+  B-A, B-C, A-C
+moves = 2^n - 1; calls with n=0 (n=3): 8</pre><h2>A5. BIG-O RECIPE</h2><ul><li>No loop / fixed steps = <b>O(1)</b>. One loop 0..n = <b>O(n)</b>. Loop inside loop (both to n, or inner bounded by outer) = <b>O(n^2)</b>. Counter halved or doubled each step = <b>O(log n)</b> (log base 2). Two loops one after the other = ADD, keep the biggest: n + n = O(n).</li><li>Divide-and-conquer with linear combine (merge sort style) = O(n log n). Nested n*n*n = O(n^3).</li><li><b>Drop constants and small terms:</b> 6n^2+30n+11 = O(n^2). 3+5n^2+7n^3 = O(n^3).</li><li>Loop header test runs ONE MORE time than the body: <code>for(i=0;i&lt;n;i++)</code> header n+1, body n.</li><li>Comparing all pairs: (n-1)+(n-2)+...+1 = n(n-1)/2 = O(n^2).</li><li>Growth, slow to fast: <b>1, log n, sqrt n, n, n log n, n^2, n^3, 2^n, n!</b> 2^n and n! are impractical except tiny n.</li></ul><h3>Complexity table (all course algorithms so far)</h3><table><tr><th>algorithm</th><th>best</th><th>worst</th></tr><tr><td>array access a[i]</td><td>O(1)</td><td>O(1)</td></tr><tr><td>linear search</td><td>O(1)</td><td>O(n)</td></tr><tr><td>binary search (sorted)</td><td>O(1)</td><td>O(log n)</td></tr><tr><td>array insert / delete</td><td>O(1) at last</td><td>O(n) at 0</td></tr><tr><td>bubble sort (nested loops)</td><td>-</td><td>O(n^2)</td></tr><tr><td>perfect square v0 / v1 / v2</td><td>-</td><td>O(n) / O(sqrt n) / O(log n)</td></tr><tr><td>sumTo(n) recursion</td><td>-</td><td>n+1 calls = O(n)</td></tr><tr><td>sumDigits / countDigits</td><td>-</td><td>1 call per digit = O(log n)</td></tr><tr><td>Towers of Hanoi</td><td>-</td><td>2^n - 1 moves (exponential)</td></tr><tr><td>ArrList get</td><td>O(1)</td><td>O(1)</td></tr><tr><td>ArrList add / addLast</td><td>-</td><td>O(n) (n = capacity)</td></tr></table><h3>Misc facts</h3><ul><li>Timing code: <code>long s=System.nanoTime(); sort(data); long e=System.nanoTime(); (e-s)/1e9</code> = seconds. Timing depends on the computer and the input, so we use Big-O instead.</li><li>Create arrays: <code>int[] b = new int[5];</code> (all start at 0) or <code>int[] c = {10,20,30};</code>. One type only, length fixed once created, index 0 to length-1. Array of objects: <code>Person[] staff = {boss, worker};</code></li><li>Flowchart shapes: rectangle = a step, diamond = yes/no question, arrows = flow. UML class box: name, fields (- private), methods (+ public).</li></ul><h2>A6. RECURSION FACTS (L7, Lab 4)</h2><ul><li>Recursion = defining something in terms of itself; a method that calls itself. Needs <b>BASE CASE</b> (a conditional, first statement, has a <code>return</code>, ends the chain) and <b>RECURSIVE CASE</b> (calls itself on a SMALLER problem so it moves to the base). Missing base case or no progress = StackOverflowError.</li><li>Calls are stored on the <b>call stack</b>; each call keeps its own variables; a return removes it and gives the value to its caller. Overhead exists. Iterative is the default; use recursion if the problem is naturally recursive (TOH recursive, factorial iterative). Every recursive solution can be iterative.</li><li>Solve with recursion: write base case first, think of smaller same-shaped subproblems, trust the call, combine the result. A loop stopping test = the recursive base case. String is empty OR a char + another string; a list is a basic object OR an item + the rest.</li><li>Boxes example: v1 iterative with a pile (while loop), v2 recursive (method calls itself on each inner box).</li></ul></div><div class="page"><div style="column-span:all"><div class="title">CSCI2010U MIDTERM - SIDE B: OOP, INHERITANCE, ABSTRACT/INTERFACE, ANALYSIS, RECURSION, LISTS, EXPLAIN-WHY</div></div><h2>B1. OOP VOCABULARY AND FACTS (L3)</h2><ul><li><b>Class</b> = blueprint/template. <b>Object / instance</b> = a real thing made from it (<code>new</code>). Cookie cutter vs cookies. Instantiate = make an instance.</li><li>Every object has <b>STATE</b> (fields: what it HAS), <b>BEHAVIOUR</b> (methods: what it DOES), <b>IDENTITY</b> (what makes it unique even with same state, set by Java; <code>Object.equals</code>). <b>Members</b> = fields + methods.</li><li>Find classes: <b>nouns = classes, verbs = methods</b> (oven, cutter, baker; bake, cut, taste). Good class candidate: something with many instances that each have state + actions (wheel, window, engine, radio).</li><li><b>Encapsulation</b> = hide data. Fields <code>private</code>, access through public methods (getters read: <code>getName()</code>, setters write: <code>setBonus()</code>). State change only through a method. <code>final</code> = cannot change. <code>this</code> = the current object (<code>this.name = name</code>). Java catches errors at COMPILE time (Python mostly at runtime).</li><li>Constructor: same name as the class, no return type, runs on <code>new</code>. All non-static classes need one.</li><li><b>Inheritance</b> = subclass gets superclass fields/methods. Keyword <b>extends</b>. Test: <b>"is a"</b>. Manager IS AN Employee so <code>Manager extends Employee</code>. NEVER the reverse. Inheritance flows general to specific only: Manager can do all Employee does plus more; Employee cannot call <code>setBonus</code>.</li><li><b>is-a vs has-a:</b> Manager IS AN Employee (use extends). A Car HAS AN Engine (a field, NOT extends). Only use inheritance when the "is a" sentence makes sense.</li><li>"Superclass" does NOT mean better. Subclass can <b>extend</b> (add) and <b>override</b> (redefine). UML: arrow from subclass up to superclass; italics = abstract. Hierarchy example: Animal > Mammal > Marsupial > Koala. Animal big 5: eat, excrete, breathe, move, reproduce. Mammals have these + glands, fur, neocortex; Animals do not all have those (lizard).</li></ul><h2>B2. SUPER, OVERRIDE, POLYMORPHISM (L4, Lab 2)</h2><pre>public class Manager extends Employee {
+  private double bonus;
+  public Manager(double salary, String name){
+    super(salary, name);     // FIRST line
+    this.bonus = 0; }
+  @Override
+  public double getSalary(){
+    return super.getSalary() + bonus; } }
+
+LimitedCounter(String name, int limit){
+  super(name); this.limit = limit; }
+@Override public void increment(){
+  if (getCount() &lt; limit) super.increment(); }
+for (Counter c : counters) c.increment();
+  // one loop, no casts</pre><ul><li>Subclass CANNOT read a superclass <code>private</code> field (error: "field is not visible"). Use the public getter.</li><li><code>getSalary()</code> inside the override with no <code>super.</code> calls ITSELF forever = <b>StackOverflowError</b>. <code>super.method()</code> = call the superclass version. <code>super(...)</code> = call the superclass constructor, must be FIRST, needed because the subclass cannot set private superclass fields. <code>super.salary</code> is illegal (super is not an object; <code>this</code> is).</li><li><b>Polymorphism:</b> reference type can be a SUPERCLASS of the object type. <code>Employee e = new Manager(..)</code> OK. <code>Manager m = new Employee(..)</code> DOES NOT COMPILE. Read right to left: "Manager is an Employee" OK, "Employee is a Manager" not OK. One array <code>Employee[]</code> can hold Employees and Managers. A method with an Employee parameter accepts any subclass. The version that RUNS is the one belonging to the actual object (e.g. Manager.getSalary), called <b>dynamic method dispatch</b> (name only, not covered).</li><li>A superclass reference cannot call subclass-only methods: <code>workerBee.setBonus(5)</code> fails to compile.</li><li>Making an object = 3 steps: (1) declare REFERENCE variable (a signpost holding an address, type never changes), (2) create the object with <code>new</code> on the <b>HEAP</b> (Java garbage-collects unused ones), (3) link reference to object.</li><li>Lab 2 answers: after limit-2 counter increments 3 times = 2; reset = 0; one more = 1. Open (no limit) and Pair differ because the actual object decides which <code>increment</code> runs.</li></ul><h2>B3. PACKAGES, ACCESS, ABSTRACT, INTERFACE (L5, Lab 3)</h2><table><tr><th>access</th><th>public</th><th>protected</th><th>none</th><th>private</th></tr><tr><td>same class</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td></tr><tr><td>same pkg subclass</td><td>Y</td><td>Y</td><td>Y</td><td>N</td></tr><tr><td>same pkg other</td><td>Y</td><td>Y</td><td>Y</td><td>N</td></tr><tr><td>diff pkg subclass</td><td>Y</td><td>Y</td><td>N</td><td>N</td></tr><tr><td>diff pkg other</td><td>Y</td><td>N</td><td>N</td><td>N</td></tr></table><ul><li><b>Package</b> = group of classes, like folders. First line <code>package name;</code>. Names unique per package. No package statement = default package. Compile with folders: <code>javac -d bin ...</code>, run with full path <code>lecture05.iface.Main</code>. Library = one or more packages. java.lang (System, Math, String) auto-imported; java.io input/output; java.util (Arrays, Random); java.net networking; javax.crypto encryption. Course uses mostly <b>public</b> and <b>private</b>; no modifier is bad practice; protected rarely.</li><li><b>Abstract class:</b> keyword <code>abstract</code>; <b>cannot be instantiated</b> (<code>new Person()</code> = compile error even though it has a constructor); mixes concrete and abstract methods; abstract method has no body, ends with <code>;</code>; a constructor can NOT be abstract; subclass must implement ALL abstract methods or be abstract itself; non-abstract = <b>concrete</b>; CAN have static methods. Use when several sibling subclasses share structure (Person to Employee and Intern).</li><li><b>Single inheritance:</b> a class can <code>extends</code> only ONE class (diamond problem: two parents with the same field/method, which one?). <b>Interface</b> (keyword <code>interface</code>) = set of requirements / a ROLE, all methods abstract, a class can <code>implements</code> MANY. Concrete class must write every method.</li><li><code>public class Employee extends Person implements Comparable&lt;Employee&gt;</code></li></ul><pre>@Override public int compareTo(Employee o){
+  return getName().compareTo(o.getName()); }
+// or Double.compare(a, b) for numbers
+// negative: this first, 0: equal, positive: after
+Arrays.sort(arr);  // needs Comparable
+Employee(String name, String dept){
+  super(name); this.department = dept; }
+@Override public String getDescription(){
+  return getName() + " - " + department; }</pre><ul><li>Sorting order comes from compareTo, NOT insertion order. Generics <code>&lt;T&gt;</code> (the "diamond") restrict the type: <code>ArrayList&lt;String&gt;</code> holds only Strings (full topic L13).</li></ul><h2>B4. ALGORITHMS AND ANALYSIS (L1, L6, L8, L9)</h2><ul><li><b>Algorithm</b> = finite (ends), deterministic (same input same output), effective, implementation (abstract enough for any language, every step precise). Pseudocode = for humans, language-free, skips boilerplate. Recipe analogy. al-Khwarizmi c.800 CE; formalised 1930s (Turing, Church).</li><li>Efficiency: <b>time</b> (count basic steps) and <b>space</b> (memory); time matters most. Simple sorts: bubble, insertion, selection. Efficient: merge, quick, heap, shell. L2 timing: n x10 gave time x100 (0.12s, 13.5s, 1424s) = about n^2.</li><li>T(n) = number of basic steps for input size n. Each pseudocode line costs a constant c_i; <code>end</code> and comments not counted. Linear search: <code>T = c1(t+1) + c2 t + c3 + c4</code>. Best case (first spot, t=1) = constant O(1). Worst case (missing, t=n) = <code>an + b</code> = linear O(n).</li><li>Best = shortest run, worst = longest run, average (not covered). Course uses <b>worst case</b>: it is an upper-bound guarantee and it happens often (searching for something absent).</li><li>Perfect square: v0 <code>while i&lt;=n</code> = O(n); v1 <code>while i*i&lt;=n</code> = O(sqrt n); v2 double i then binary search = O(log2 n).</li><li><b>BIG-O definition:</b> f(n)=O(g(n)) if there exist positive constants c and n0 with <code>0 &lt;= f(n) &lt;= c*g(n)</code> for all n &gt;= n0. g is an UPPER bound. O(g) is a SET of functions. c and n0 must be positive (not 0). Example: 3+5n^2+7n^3 &lt;= 15n^3.</li><li>Big-O is a notation; worst case is a type of input; Big-O can describe best, worst or any case.</li><li>Simplifying steps: ignore each statement cost, keep a*n+b, keep only the leading term (n^2 beats 90n once n>30), drop the leading constant.</li><li><b>Class challenge for 3+5n+18n^2:</b> O(n) FALSE, O(n^2) TRUE, O(n^3) TRUE; 3^n=O(n^3) FALSE; n^3=O(3^n) TRUE. Also 5n+20=O(n) T; n^2=O(n) F; n=O(n^2) T; 2^n=O(n^3) F; n log n=O(n^2) T.</li></ul><h2>B6. LISTS (L11)</h2><ul><li>A <b>List</b> = finite, <b>ordered</b> collection of elements of ONE type. Ordered = each has a <b>position</b>, NOT sorted by value. Empty = no elements. <b>Head</b> = start, <b>tail</b> = end. Sorted list = ascending values; unsorted = no relationship.</li><li>Interface says WHAT (requirements), implementation says HOW (unsorted list search = linear, sorted = binary). Plan for stacks, queues, lists: interface, array version, linked-list version.</li><li>Our <code>List&lt;T&gt;</code> methods: <code>add(T)</code> head, <code>add(T,int index)</code> middle, <code>addLast(T)</code> tail, <code>get(int)</code>, <code>isEmpty()</code>, <code>size()</code>, <code>toString()</code>.</li></ul><pre>class ArrList&lt;T&gt; implements List&lt;T&gt; {
+ private static final int DEFAULT_SIZE = 10;
+ private int maxSize;   // capacity
+ private int size;      // stored now
+ private T[] listArray;
+ ArrList(){ this(DEFAULT_SIZE); }
+ ArrList(int capacity){ maxSize = capacity;
+   this.size = 0;
+   listArray = (T[]) new Object[capacity]; }
+ get(i): if (i&lt;0 || i&gt;size || i&gt;=maxSize)
+   throw new IndexOutOfBoundsException(..);
+   return listArray[i];
+ add(e,i): same check; shift right from end;
+   listArray[i]=e; if (size&lt;maxSize) size++;  O(n)
+ addLast(e): if (size==maxSize) shift left
+   (drops the head); put e at size (or
+   maxSize-1 if full); if (size&lt;maxSize) size++;
+   O(n)
+ toString: "[]" if size==0, else "[a, b, c]"</pre><ul><li>add at head = like array INSERT (shift right). addLast on a full list = like array DELETE (shift left). IndexOutOfBoundsException is an <b>unchecked</b> exception (extends RuntimeException): programmer error, need not be caught or declared.</li></ul><h2>B8. ONE-LINE ANSWERS FOR "EXPLAIN WHY"</h2><ul><li><b>Why must a duration EQUAL to the target count?</b> "At least" means greater than OR equal, so use <code>&gt;=</code>.</li><li><b>Why does <code>increment()</code> inside the override call itself?</b> Without <code>super.</code> Java calls the current class, which is the override, forever. <code>super.increment()</code> calls the superclass version.</li><li><b><code>super(name)</code> vs <code>super.increment()</code>:</b> the first is the constructor call that sets the superclass private state (first line only); the second calls the superclass version of an overridden method.</li><li><b>Why can Employee not read Person's name?</b> It is private so only Person can touch it; use the public <code>getName()</code>.</li><li><b>Why does <code>new Person("x")</code> not compile?</b> Person is abstract, so it cannot be instantiated, even though it has a constructor.</li><li><b>Why must a concrete class implement every abstract method?</b> Otherwise the object would have a method with no body.</li><li><b>How does Comparable help Arrays.sort?</b> sort calls <code>compareTo</code> on the elements to decide the order; implementing it supplies that rule. <b>implements vs extends:</b> extends inherits ONE class; implements promises to write the interface methods and a class can have many.</li><li><b>Loop stop vs recursive base case:</b> both are the condition where the work ends, and each step must move toward it (n/10 reaches 0, string gets shorter).</li><li><b>Why does a mismatch return false immediately (palindrome)?</b> One differing pair of outer characters already proves it is not a palindrome.</li><li><b>Why O(log n) for binary search?</b> Each comparison halves the remaining range; n can be halved about log2 n times.</li><li><b>Why drop constants/lower terms?</b> Only the growth rate matters for large n; the leading term dominates.</li><li><b>Why worst case?</b> It is a guaranteed upper bound and it often really happens.</li><li><b>Why does printUp print 1 2 3?</b> It prints AFTER the recursive call, so output happens on the way back up the stack.</li></ul></div></body></html>
