@@ -6,8 +6,14 @@
 
 FALL 2026/Courses/*/Study Guide.md
 
-FALL 2026/Courses/*/files/
+FALL 2026/Courses/**/files/
+
+FALL 2026/Courses/*/Source Code/
+
+FALL 2026/Courses/*/Labs/
 
 .obsidian/
 
 FALL 2026/Courses/**/*[Tt]ranscript*.md
+
+FALL 2026/Courses/*/recordings/
