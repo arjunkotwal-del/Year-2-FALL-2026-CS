@@ -38,5 +38,14 @@
 - Labs are pass/fail and in person every week — never skip one for exam studying.
 - This chat is for Data Structures. Discrete Math content work (notes, induction practice) belongs in its own chat and its own `CSCI2110U-MATH2080` folder.
 
+## Final 2 days (written 2026-10-23)
+Exam format per the professor: fill in the blank, like the labs. Double-sided cheat sheet allowed.
+
+| When | Do |
+|---|---|
+| Oct 23 | Copy `cheat sheet.md` onto paper by hand. Do `practice fill-in-the-blank.md` closed notes, 40 minutes. Mark with `practice answers.md`. Log every miss in `error log.md`. Re-trace recursion (L7 questions Q1, Q4) and bubble sort on paper. |
+| Oct 24 | Re-do only the missed items. Second timed attempt of Q32-Q59 from the practice set. Trace TOH n=3 and binary search once more from scratch. Update the cheat sheet with anything you kept missing. Stop early, sleep. |
+| Oct 25 | Skim the cheat sheet once. No new material. |
+
 ## Status
-Plan created 2026-10-04, revised the same day to include the Discrete Math midterm. Nothing completed yet.
+Plan created 2026-10-04, revised the same day to include the Discrete Math midterm. Cheat sheet and practice set added 2026-10-23, built from the L1-L10 slides. Scope still unconfirmed on Canvas.
