@@ -1,7 +1,7 @@
 ---
 tags: [review, midterm, practice-exam]
 ---
-
+  
 # Practice Midterm 1 (Lectures 1 to 9)
 
 ← [[Midterm Prep Plan]] | ← [[../CSCI2110U-MATH2080 - Discrete Math]]
