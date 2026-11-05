@@ -1,0 +1,407 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CSCI2010U Midterm Quiz</title>
+<style>
+:root {
+  --bg: #f6f7f9; --card: #ffffff; --ink: #1b1f24; --muted: #5b6573; --line: #d8dde4;
+  --accent: #1f4e8c; --accent-ink: #ffffff; --good: #1a7f37; --good-bg: #dff3e4;
+  --bad: #b3261e; --bad-bg: #fbe3e1; --code-bg: #eef0f3; --warn-bg: #fff4d6;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #14171b; --card: #1d2227; --ink: #e8ecf1; --muted: #9aa6b4; --line: #343c45;
+    --accent: #6ea8fe; --accent-ink: #0b1320; --good: #5fd08a; --good-bg: #17331f;
+    --bad: #ff8a80; --bad-bg: #3a1c1a; --code-bg: #272d34; --warn-bg: #3a3112;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #14171b; --card: #1d2227; --ink: #e8ecf1; --muted: #9aa6b4; --line: #343c45;
+  --accent: #6ea8fe; --accent-ink: #0b1320; --good: #5fd08a; --good-bg: #17331f;
+  --bad: #ff8a80; --bad-bg: #3a1c1a; --code-bg: #272d34; --warn-bg: #3a3112;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif; }
+.wrap { max-width: 920px; margin: 0 auto; padding: 16px; }
+h1 { font-size: 1.25rem; margin: 0; }
+.top { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+.stats { display: flex; gap: 8px; flex-wrap: wrap; font-size: .9rem; }
+.pill { background: var(--card); border: 1px solid var(--line); border-radius: 999px; padding: 4px 12px; }
+.pill b { font-variant-numeric: tabular-nums; }
+button { font: inherit; cursor: pointer; border-radius: 8px; border: 1px solid var(--line); background: var(--card); color: var(--ink); padding: 8px 14px; }
+button:hover:not(:disabled) { border-color: var(--accent); }
+button:disabled { opacity: .45; cursor: not-allowed; }
+button.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+button.good { background: var(--good-bg); border-color: var(--good); color: var(--good); }
+button.bad { background: var(--bad-bg); border-color: var(--bad); color: var(--bad); }
+.grid { display: flex; flex-wrap: wrap; gap: 4px; margin: 8px 0 14px; }
+.grid button { width: 36px; padding: 4px 0; font-size: .8rem; text-align: center; }
+.grid button.cur { outline: 2px solid var(--accent); outline-offset: 1px; }
+.grid button.s-good { background: var(--good-bg); border-color: var(--good); }
+.grid button.s-bad { background: var(--bad-bg); border-color: var(--bad); }
+.grid button.s-seen { background: var(--warn-bg); }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 16px; }
+.sec { display: inline-block; font-size: .75rem; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.qn { font-weight: 700; margin-right: 6px; }
+.prompt { font-size: 1.05rem; margin: 6px 0 12px; }
+pre, code { font-family: Consolas, "SFMono-Regular", Menlo, monospace; }
+code { background: var(--code-bg); padding: 1px 5px; border-radius: 4px; font-size: .92em; }
+pre { background: var(--code-bg); border-radius: 8px; padding: 10px 12px; overflow-x: auto; font-size: .9rem; margin: 8px 0; }
+pre code { background: none; padding: 0; }
+textarea { width: 100%; min-height: 84px; font: inherit; padding: 10px; border-radius: 8px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); resize: vertical; }
+textarea:focus { outline: 2px solid var(--accent); }
+.row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; align-items: center; }
+.hint { font-size: .85rem; color: var(--muted); }
+.answer { margin-top: 12px; padding: 12px; border-radius: 8px; background: var(--warn-bg); border-left: 4px solid var(--accent); }
+.answer .label { font-weight: 700; display: block; margin-bottom: 4px; }
+.verdict { margin-left: 4px; font-weight: 600; }
+.banner { padding: 10px 14px; border-radius: 8px; margin-bottom: 12px; background: var(--bad-bg); border: 1px solid var(--bad); }
+.results h2 { margin-top: 0; }
+.missed { border-top: 1px solid var(--line); padding: 10px 0; }
+.nav { display: flex; justify-content: space-between; margin-top: 14px; }
+.secbar { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
+.secbar button { font-size: .8rem; padding: 4px 10px; }
+.secbar button.on { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.foot { margin-top: 18px; font-size: .8rem; color: var(--muted); }
+@media (max-width: 520px) { .wrap { padding: 10px; } .card { padding: 12px; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <h1>CSCI2010U Midterm Quiz</h1>
+    <div class="stats">
+      <span class="pill">Time <b id="clock">40:00</b></span>
+      <span class="pill">Done <b id="sDone">0</b>/<b id="sTotal">0</b></span>
+      <span class="pill">Got it <b id="sGood">0</b></span>
+      <span class="pill">Missed <b id="sBad">0</b></span>
+    </div>
+  </div>
+
+  <div id="banner" class="banner" hidden>Time is up. You can keep going, but note which ones you finished inside 40 minutes.</div>
+
+  <div class="row" style="margin:0 0 10px">
+    <button id="btnStart" class="primary">Start 40-minute timer</button>
+    <button id="btnResults">Finish and see results</button>
+    <button id="btnReset">Reset everything</button>
+    <button id="btnTheme" aria-label="Toggle dark mode">Dark / light</button>
+  </div>
+  <div class="hint" style="margin-bottom:8px">Type your attempt first (even "idk"), then the answer unlocks. Mark yourself honestly. Closed notes, on paper too if you like.</div>
+
+  <div id="secbar" class="secbar"></div>
+  <div id="grid" class="grid"></div>
+
+  <div id="view"></div>
+
+  <div class="foot">Your progress is saved in this browser. Source: the 62 questions in <code>practice fill-in-the-blank.md</code>.</div>
+</div>
+
+<script>
+var QS = [
+ // ---------- Bubble sort and Java (L1, L2)
+ ["Bubble sort and Java", "Bubble sort compares ________ elements and swaps them if they are out of order.", "adjacent (neighbouring) elements"],
+ ["Bubble sort and Java", "After one pass, the ________ value in the unsorted part is at its final position at the right end.", "largest"],
+ ["Bubble sort and Java", "Fill in:<pre><code>for (int i = A.length - 1; i ____ 0; i--) {\n  for (int j = 0; j ____ i; j++) {\n    if (A[j+1] ____ A[j]) swap(A, j, j+1);\n  }\n}</code></pre>", "<code>i &gt; 0</code>, <code>j &lt; i</code>, <code>A[j+1] &lt; A[j]</code>"],
+ ["Bubble sort and Java", "An array has 6 elements. Pass 1 makes ____ comparisons, pass 2 makes ____, and the whole sort makes ____ passes.", "5, 4, and 5 passes (n - 1)"],
+ ["Bubble sort and Java", "In bubble sort, the variable that stays fixed during a pass is ____, and the one that moves after every comparison is ____.", "<code>i</code> is fixed during a pass; <code>j</code> moves after every comparison."],
+ ["Bubble sort and Java", "Trace one pass of bubble sort on <code>[6, 2, 5, 1]</code>. Array after the pass: ________.", "<code>6 2 5 1</code> to <code>2 6 5 1</code> to <code>2 5 6 1</code> to <code>2 5 1 6</code>. After the pass: <b>[2, 5, 1, 6]</b>"],
+ ["Bubble sort and Java", "To sort in descending order, change <code>&lt;</code> to ________.", "<code>&gt;</code>"],
+ ["Bubble sort and Java", "A swap method needs a ________ variable, otherwise the first assignment overwrites a value that was never saved.", "temp (temporary)"],
+ ["Bubble sort and Java", "A method that sorts an array in place does not need to return it because arrays are ________ types, so the method gets a copy of the ________ to the same array.", "reference types; a copy of the reference"],
+ ["Bubble sort and Java", "In the L2 timing experiment, when n grew by 10, the time grew by about ________.", "about 100 times (x100), which hints at n^2"],
+
+ // ---------- Objects, inheritance, polymorphism (L3, L4)
+ ["Objects, inheritance, polymorphism", "The three characteristics of an object are ________, ________ and ________.", "state, behaviour, identity"],
+ ["Objects, inheritance, polymorphism", "When finding classes in a problem description, nouns become ________ and verbs become ________.", "nouns become classes; verbs become methods"],
+ ["Objects, inheritance, polymorphism", "A subclass is created with the keyword ________. The test used to check it is the \"________\" relationship.", "<code>extends</code>; the &quot;is a&quot; relationship"],
+ ["Objects, inheritance, polymorphism", "A private field in a superclass ________ (is / is not) visible in the subclass, so the subclass must call a public ________ method.", "is not visible; call a public getter (e.g. <code>getSalary()</code>)"],
+ ["Objects, inheritance, polymorphism", "The annotation placed above a method that redefines a superclass method is ________. To call the superclass's version, write ________.getSalary().", "<code>@Override</code>; <code>super</code>.getSalary()"],
+ ["Objects, inheritance, polymorphism", "Inside <code>Manager.getSalary()</code>, the statement <code>return getSalary() + bonus;</code> causes a ________ error because the method calls itself forever.", "<b>StackOverflowError</b> (a runtime error)"],
+ ["Objects, inheritance, polymorphism", "In a subclass constructor, the call to <code>super(...)</code> must be the ________ statement.", "first"],
+ ["Objects, inheritance, polymorphism", "Which line compiles?<br>(a) <code>Employee e = new Manager(1, \"x\");</code><br>(b) <code>Manager m = new Employee(1, \"x\");</code>", "<b>(a)</b>. A Manager is an Employee, so a parent reference can hold a child object. (b) is a compile error."],
+ ["Objects, inheritance, polymorphism", "<code>Employee[] staff = {employeeObj, managerObj}; staff[1].getSalary()</code> runs the ________ class's version of getSalary.", "<b>Manager's</b> (the object's own class)"],
+ ["Objects, inheritance, polymorphism", "A reference variable holds the ________ of an object. The object itself is allocated on the ________.", "address (reference); the <b>heap</b>"],
+ ["Objects, inheritance, polymorphism", "Given <code>Employee workerBee = new Employee(...)</code>, the call <code>workerBee.setBonus(5)</code> fails because ________.", "<code>Employee</code> has no <code>setBonus</code> method; only <code>Manager</code> does. A superclass does not know what subclasses add."],
+
+ // ---------- Packages, abstract classes, interfaces (L5)
+ ["Packages, abstract classes, interfaces", "A package statement must be the ________ statement in the file. Classes with no package statement go in the ________ package.", "first; the default package"],
+ ["Packages, abstract classes, interfaces", "Of these, ________ is imported automatically: java.util, java.lang, java.io.", "<code>java.lang</code>"],
+ ["Packages, abstract classes, interfaces", "A <code>protected</code> member is accessible from a different package only by ________.", "subclasses"],
+ ["Packages, abstract classes, interfaces", "A member with no modifier is accessible from a subclass in a different package: ________ (Yes / No).", "No"],
+ ["Packages, abstract classes, interfaces", "An abstract class ________ (can / cannot) be instantiated, a constructor ________ (can / cannot) be abstract, and a subclass must implement all abstract methods or be declared ________.", "cannot; cannot; abstract"],
+ ["Packages, abstract classes, interfaces", "An abstract class ________ (can / cannot) have a static method.", "can"],
+ ["Packages, abstract classes, interfaces", "Java allows a class to extend only ________ class because of the ________ problem.", "one (a single) class; the diamond problem"],
+ ["Packages, abstract classes, interfaces", "A class that uses an interface says ________ in its header and must write ________ for every method in it.", "<code>implements</code>; a concrete definition (an implementation)"],
+ ["Packages, abstract classes, interfaces", "<code>compareTo</code> returns a negative number when the current object is ________ the argument.", "less than (comes before)"],
+ ["Packages, abstract classes, interfaces", "To use <code>Arrays.sort()</code> on an array of Employee objects, Employee must ________ the ________ interface.", "implement the <code>Comparable</code> interface"],
+
+ // ---------- Algorithms and recursion (L6, L7)
+ ["Algorithms and recursion", "An algorithm is finite, ________, effective, and sufficiently abstract to be coded in any language.", "deterministic"],
+ ["Algorithms and recursion", "Linear search returns ________ when the value is not found.", "<b>-1</b>"],
+ ["Algorithms and recursion", "PerfectSquare v0 is O(____), v1 is O(____), v2 is O(____).", "O(n), O(sqrt n), O(log2 n)"],
+ ["Algorithms and recursion", "Every recursive method needs a ________ case and a ________ case.", "base case and recursive case"],
+ ["Algorithms and recursion", "The recursive case must work on a ________ subproblem.", "smaller"],
+ ["Algorithms and recursion", "Recursive calls are stored on the ________.", "call stack"],
+ ["Algorithms and recursion", "A recursive method with no base case ends with a ________ error.", "StackOverflowError (stack overflow)"],
+ ["Algorithms and recursion", "What is the output of <code>mystery(3)</code>?<pre><code>static void mystery(int n) {\n  if (n == 0) return;\n  System.out.println(n);\n  mystery(n - 1);\n  System.out.println(n);\n}</code></pre>", "<b>3 2 1 1 2 3</b>. It prints 3, 2, 1 going down, hits the base case (prints nothing), then prints 1, 2, 3 coming back up."],
+ ["Algorithms and recursion", "Complete: <code>TOH(n-1, start, ____, ____); move(start, goal); TOH(n-1, ____, goal, ____);</code>", "<code>TOH(n-1, start, temp, goal); move(start, goal); TOH(n-1, temp, goal, start);</code>"],
+ ["Algorithms and recursion", "Moves printed by <code>TOH(2, A, C, B)</code>, in order: ________.", "A --> B, then A --> C, then B --> C"],
+ ["Algorithms and recursion", "The default choice should be a(n) ________ solution unless the problem is naturally recursive.", "iterative"],
+
+ // ---------- Analysis of algorithms (L8, L9)
+ ["Analysis of algorithms", "In running-time analysis, T(n) counts the number of ________.", "basic steps"],
+ ["Analysis of algorithms", "A for loop header is executed ________ time(s) more than its body.", "one (1) more"],
+ ["Analysis of algorithms", "Best-case linear search is O(____). Worst-case is O(____).", "O(1); O(n)"],
+ ["Analysis of algorithms", "Order from slowest growing to fastest growing: 2^n, n, log n, n^2, 1, n log n, n!", "<b>1, log n, n, n log n, n^2, 2^n, n!</b>"],
+ ["Analysis of algorithms", "5n^3 + 40n + 9 is O(____).", "<b>O(n^3)</b>. Keep the biggest term and drop its constant."],
+ ["Analysis of algorithms", "True or false: 3n + 4 = O(n^2). ____ &nbsp; True or false: n^2 = O(n). ____", "<b>True</b> (n is earlier than n^2 on the ladder). <b>False</b> (n^2 grows faster than n)."],
+ ["Analysis of algorithms", "In the definition f(n) &lt;= c*g(n) for all n &gt;= n0, the constants c and n0 must be ________ (positive / zero allowed).", "positive"],
+ ["Analysis of algorithms", "A single loop from 0 to n is O(____). A loop nested inside it over the same range is O(____). A loop that halves its counter each step is O(____).", "O(n); O(n^2); O(log n)"],
+ ["Analysis of algorithms", "\"Worst case\" is the type of ________ given to the algorithm. \"Big-O\" is a ________.", "input; mathematical notation"],
+
+ // ---------- Arrays and binary search (L10)
+ ["Arrays and binary search", "Reading <code>A[i]</code> takes ________ time. An array's length is ________ once it is created.", "constant, O(1); fixed"],
+ ["Arrays and binary search", "Complete the insertion loop: <code>for (int i = a.length-1; i &gt; ____; i--) a[i] = ________;  a[idx] = val;</code>", "<code>i &gt; idx</code>; <code>a[i] = a[i-1]</code>"],
+ ["Arrays and binary search", "Complete the deletion loop: <code>for (int i = idx+1; i &lt; a.length; i++) a[____] = a[____];</code>", "<code>a[i-1] = a[i]</code>"],
+ ["Arrays and binary search", "Worst case for insert and delete is at idx = ____ and costs O(____). Best case is idx = ____ and costs O(____).", "idx = 0, O(n); idx = n-1 (the last position), O(1)"],
+ ["Arrays and binary search", "Binary search requires the array to be ________. Its worst-case complexity is O(____).", "sorted (in increasing order); O(log2 n)"],
+ ["Arrays and binary search", "Binary search base case: if ____ &gt; ____, return NOT_FOUND.", "if <code>low &gt; high</code>, return NOT_FOUND"],
+ ["Arrays and binary search", "Trace binary search for val = 5 in <code>[1, 3, 5, 7, 9, 11, 13]</code>. List low, high, mid for each call.", "Call 1: low=0, high=6, mid=3, a[3]=7, 5&lt;7 so high=2.<br>Call 2: low=0, high=2, mid=1, a[1]=3, 5&gt;3 so low=2.<br>Call 3: low=2, high=2, mid=2, a[2]=5, found, return <b>2</b>."],
+ ["Arrays and binary search", "Why is O(log2 n) the worst case? Each comparison either finds the value or ________ the remaining range.", "cuts (halves) the remaining range"],
+
+ // ---------- Explain in one sentence
+ ["Explain in one sentence", "Why can't a Manager read Employee's private field <code>salary</code> directly?", "<code>private</code> means only members of the same class can access it. Manager is a different class from Employee, so it must go through the public getter."],
+ ["Explain in one sentence", "Why does <code>printUp(3)</code> print 1 2 3 but <code>countdown(3)</code> print 3 2 1 0?", "<code>printUp</code> prints <b>after</b> its recursive call, so output happens on the way back up the stack. <code>countdown</code> prints <b>before</b> its recursive call, so output happens on the way down."],
+ ["Explain in one sentence", "Why do we drop constants and lower-order terms in Big-O?", "Only the growth rate matters for large n. The leading term dominates the rest, and a constant factor does not change how fast the running time grows."]
+];
+
+var KEY = "csci2010u-quiz-v1";
+var state = { cur: 0, filter: "All", answers: {}, marks: {}, seen: {}, startedAt: null };
+var tick = null, TOTAL_SECONDS = 40 * 60;
+
+function load() {
+  try {
+    var raw = localStorage.getItem(KEY);
+    if (raw) { var s = JSON.parse(raw); for (var k in s) state[k] = s[k]; }
+  } catch (e) {}
+}
+function save() { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} }
+
+var sections = ["All"];
+QS.forEach(function (q) { if (sections.indexOf(q[0]) < 0) sections.push(q[0]); });
+
+function visibleIdx() {
+  var out = [];
+  QS.forEach(function (q, i) { if (state.filter === "All" || q[0] === state.filter) out.push(i); });
+  return out;
+}
+
+function fmt(sec) {
+  if (sec < 0) sec = 0;
+  var m = Math.floor(sec / 60), s = sec % 60;
+  return (m < 10 ? "0" : "") + m + ":" + (s < 10 ? "0" : "") + s;
+}
+function updateClock() {
+  var clock = document.getElementById("clock");
+  if (!state.startedAt) { clock.textContent = fmt(TOTAL_SECONDS); return; }
+  var left = TOTAL_SECONDS - Math.floor((Date.now() - state.startedAt) / 1000);
+  clock.textContent = fmt(left);
+  document.getElementById("banner").hidden = left > 0;
+}
+function startTimer() {
+  if (!state.startedAt) { state.startedAt = Date.now(); save(); }
+  if (tick) clearInterval(tick);
+  tick = setInterval(updateClock, 1000);
+  updateClock();
+  document.getElementById("btnStart").disabled = true;
+  document.getElementById("btnStart").textContent = "Timer running";
+}
+
+function renderStats() {
+  var good = 0, bad = 0;
+  for (var k in state.marks) { if (state.marks[k] === "good") good++; else if (state.marks[k] === "bad") bad++; }
+  document.getElementById("sGood").textContent = good;
+  document.getElementById("sBad").textContent = bad;
+  document.getElementById("sDone").textContent = good + bad;
+  document.getElementById("sTotal").textContent = QS.length;
+}
+
+function renderSecbar() {
+  var bar = document.getElementById("secbar");
+  bar.innerHTML = "";
+  sections.forEach(function (s) {
+    var b = document.createElement("button");
+    b.textContent = s;
+    if (s === state.filter) b.className = "on";
+    b.onclick = function () {
+      state.filter = s;
+      var v = visibleIdx();
+      if (v.indexOf(state.cur) < 0) state.cur = v[0];
+      save(); render();
+    };
+    bar.appendChild(b);
+  });
+}
+
+function renderGrid() {
+  var g = document.getElementById("grid");
+  g.innerHTML = "";
+  visibleIdx().forEach(function (i) {
+    var b = document.createElement("button");
+    b.textContent = i + 1;
+    var cls = [];
+    if (state.marks[i] === "good") cls.push("s-good");
+    else if (state.marks[i] === "bad") cls.push("s-bad");
+    else if (state.seen[i]) cls.push("s-seen");
+    if (i === state.cur) cls.push("cur");
+    b.className = cls.join(" ");
+    b.onclick = function () { state.cur = i; save(); render(); };
+    g.appendChild(b);
+  });
+}
+
+function renderQuestion() {
+  var i = state.cur, q = QS[i], view = document.getElementById("view");
+  var attempt = state.answers[i] || "";
+  var revealed = !!state.seen[i];
+  var mark = state.marks[i];
+  var vis = visibleIdx(), pos = vis.indexOf(i);
+
+  var html = '<div class="card">' +
+    '<span class="sec">' + q[0] + '</span>' +
+    '<div class="prompt"><span class="qn">Q' + (i + 1) + '.</span>' + q[1] + '</div>' +
+    '<textarea id="attempt" placeholder="Type your answer (or idk). The answer unlocks after you type something." ' + (revealed ? "" : "") + '></textarea>' +
+    '<div class="row"><button id="btnReveal" class="primary">Reveal answer</button>' +
+    '<span class="hint" id="revealHint"></span></div>';
+
+  if (revealed) {
+    html += '<div class="answer"><span class="label">Answer</span>' + q[2] + '</div>' +
+      '<div class="row"><span>How did you do?</span>' +
+      '<button id="btnGood" class="good">I got it</button>' +
+      '<button id="btnBad" class="bad">I missed it</button>' +
+      '<span class="verdict" id="verdict">' + (mark === "good" ? "Marked: got it" : mark === "bad" ? "Marked: missed" : "") + '</span></div>';
+  }
+  html += '</div>' +
+    '<div class="nav"><button id="btnPrev"' + (pos <= 0 ? " disabled" : "") + '>Previous</button>' +
+    '<button id="btnNext"' + (pos >= vis.length - 1 ? " disabled" : "") + '>Next</button></div>';
+
+  view.innerHTML = html;
+
+  var ta = document.getElementById("attempt");
+  ta.value = attempt;
+  var reveal = document.getElementById("btnReveal");
+  function sync() {
+    var has = ta.value.trim().length > 0;
+    reveal.disabled = !has && !revealed;
+    document.getElementById("revealHint").textContent = (!has && !revealed) ? "Type an attempt first." : "";
+  }
+  sync();
+  ta.oninput = function () { state.answers[i] = ta.value; save(); sync(); };
+  reveal.onclick = function () { state.seen[i] = true; save(); render(); };
+
+  if (revealed) {
+    document.getElementById("btnGood").onclick = function () { state.marks[i] = "good"; save(); autoNext(); };
+    document.getElementById("btnBad").onclick = function () { state.marks[i] = "bad"; save(); autoNext(); };
+  }
+  document.getElementById("btnPrev").onclick = function () { if (pos > 0) { state.cur = vis[pos - 1]; save(); render(); } };
+  document.getElementById("btnNext").onclick = function () { if (pos < vis.length - 1) { state.cur = vis[pos + 1]; save(); render(); } };
+}
+
+function autoNext() {
+  var vis = visibleIdx(), pos = vis.indexOf(state.cur);
+  if (pos < vis.length - 1) state.cur = vis[pos + 1];
+  render();
+}
+
+function render() {
+  renderStats(); renderSecbar(); renderGrid(); renderQuestion();
+  window.scrollTo(0, 0);
+}
+
+function showResults() {
+  var good = 0, bad = 0, skipped = [];
+  QS.forEach(function (q, i) {
+    if (state.marks[i] === "good") good++;
+    else if (state.marks[i] === "bad") bad++;
+    else skipped.push(i);
+  });
+  var done = good + bad;
+  var pct = done ? Math.round(100 * good / done) : 0;
+
+  var html = '<div class="card results"><h2>Results</h2>' +
+    '<p><b>' + good + '</b> got it, <b>' + bad + '</b> missed, <b>' + skipped.length + '</b> not marked. ' +
+    (done ? 'Of the ones you marked, that is <b>' + pct + '%</b>.' : '') + '</p>';
+
+  var log = [];
+  var d = new Date();
+  var stamp = d.getFullYear() + "-" + ("0" + (d.getMonth() + 1)).slice(-2) + "-" + ("0" + d.getDate()).slice(-2);
+  var anyMissed = false;
+  var bySec = {};
+  QS.forEach(function (q, i) { if (state.marks[i] === "bad") { anyMissed = true; (bySec[q[0]] = bySec[q[0]] || []).push(i); } });
+
+  if (anyMissed) {
+    html += '<p>Fix these first, grouped by topic. Copy the lines into your error log, then say the answer in your own words.</p>';
+    for (var sec in bySec) {
+      html += '<div class="missed"><b>' + sec + ' (' + bySec[sec].length + ' missed)</b>';
+      bySec[sec].forEach(function (i) {
+        html += '<div style="margin-top:8px"><span class="qn">Q' + (i + 1) + '.</span>' + QS[i][1] +
+          '<div class="answer"><span class="label">Answer</span>' + QS[i][2] + '</div></div>';
+        var plain = document.createElement("div"); plain.innerHTML = QS[i][1];
+        log.push("| " + stamp + " | " + sec + " | Q" + (i + 1) + ": " + plain.textContent.replace(/\s+/g, " ").trim().slice(0, 90) + " | | |");
+      });
+      html += '</div>';
+    }
+    html += '<div class="row"><button id="btnCopy" class="primary">Copy missed list for the error log</button><span class="hint" id="copyHint"></span></div>';
+  } else if (done) {
+    html += '<p>Nothing marked as missed. Mark honestly, then re-check any you guessed.</p>';
+  }
+  if (skipped.length) {
+    html += '<p class="hint">Not marked: ' + skipped.map(function (i) { return "Q" + (i + 1); }).join(", ") + '</p>';
+  }
+  html += '<div class="row"><button id="btnBack">Back to the quiz</button></div></div>';
+
+  document.getElementById("view").innerHTML = html;
+  document.getElementById("btnBack").onclick = render;
+  var copy = document.getElementById("btnCopy");
+  if (copy) copy.onclick = function () {
+    var text = "| Date | Topic | What I missed | Correct reasoning (my words) | Re-done? |\n|---|---|---|---|---|\n" + log.join("\n");
+    var hint = document.getElementById("copyHint");
+    function ok() { hint.textContent = "Copied."; }
+    function fail() {
+      var ta = document.createElement("textarea"); ta.value = text; ta.style.minHeight = "140px";
+      document.getElementById("view").appendChild(ta); ta.select();
+      hint.textContent = "Select all and copy from the box below.";
+    }
+    try { navigator.clipboard.writeText(text).then(ok, fail); } catch (e) { fail(); }
+  };
+  window.scrollTo(0, 0);
+}
+
+document.getElementById("btnStart").onclick = startTimer;
+document.getElementById("btnResults").onclick = showResults;
+document.getElementById("btnReset").onclick = function () {
+  if (!confirm("Clear all answers, marks and the timer?")) return;
+  state = { cur: 0, filter: "All", answers: {}, marks: {}, seen: {}, startedAt: null };
+  if (tick) { clearInterval(tick); tick = null; }
+  try { localStorage.removeItem(KEY); } catch (e) {}
+  document.getElementById("btnStart").disabled = false;
+  document.getElementById("btnStart").textContent = "Start 40-minute timer";
+  document.getElementById("banner").hidden = true;
+  updateClock(); render();
+};
+document.getElementById("btnTheme").onclick = function () {
+  var root = document.documentElement;
+  var dark = root.getAttribute("data-theme") === "dark" ||
+    (!root.getAttribute("data-theme") && window.matchMedia("(prefers-color-scheme: dark)").matches);
+  root.setAttribute("data-theme", dark ? "light" : "dark");
+};
+
+load();
+document.getElementById("sTotal").textContent = QS.length;
+if (state.startedAt) startTimer(); else updateClock();
+render();
+</script>
+</body>
+</html>
